@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<rss version="2.0">
+ <channel>
+  <title>My Blog: My Blog</title>
+  <description>My Blog: My Blog</description>
+  <link>https://thepineapplew.github.io/index.html</link>
+  <lastBuildDate>Sun, 14 May 2023 01:05:35 UT</lastBuildDate>
+  <pubDate>Sun, 14 May 2023 01:05:35 UT</pubDate>
+  <ttl>1800</ttl>
+  <item>
+   <title>Test post</title>
+   <link>https://thepineapplew.github.io/2023/05/test-post.html?utm_source=all&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:https-thepineapplew-github-io:-2023-05-test-post-html</guid>
+   <pubDate>Sun, 14 May 2023 01:05:35 UT</pubDate>
+   <author>The Unknown Author</author>
+   <description>
+&lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;&lt;a href="https://thepineapplew.github.io/2023/05/test-post.html?utm_source=all&amp;amp;utm_medium=RSS"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</description></item>
+  <item>
+   <title>A 2012 blog post</title>
+   <link>https://thepineapplew.github.io/2012/01/a-2012-blog-post.html?utm_source=all&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:https-thepineapplew-github-io:-2012-01-a-2012-blog-post-html</guid>
+   <pubDate>Sun, 01 Jan 2012 05:00:00 UT</pubDate>
+   <author>The Unknown Author</author>
+   <description>
+&lt;p&gt;Here is an example blog post.&lt;/p&gt;
+
+&lt;p&gt;Everything after this paragraph &amp;ldquo;after the break&amp;rdquo;. On index pages and Atom feeds, it will become &amp;ldquo;Continue reading&amp;hellip;&amp;rdquo;, if you configure them to include only the summary &amp;ldquo;blurb&amp;rdquo; before the break.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;some code&lt;/code&gt;&lt;/pre&gt;&lt;a href="https://thepineapplew.github.io/2012/01/a-2012-blog-post.html?utm_source=all&amp;amp;utm_medium=RSS"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</description></item></channel></rss>
