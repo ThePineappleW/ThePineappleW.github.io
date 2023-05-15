@@ -1,3 +1,4 @@
 /.frog/
 frog.rkt
 /_src/
+*.rkt~

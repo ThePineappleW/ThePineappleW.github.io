@@ -1,10 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
- <title type="text">My Blog: My Blog</title>
+ <title type="text">Emery Jacobowitz : Emery Jacobowitz </title>
  <link rel="self" href="https://thepineapplew.github.io/feeds/all.atom.xml" />
  <link href="https://thepineapplew.github.io/index.html" />
  <id>urn:https-thepineapplew-github-io:-index-html</id>
- <updated>2023-05-14T01:05:35Z</updated>
+ <updated>2023-05-15T18:12:56Z</updated>
+ <entry>
+  <title type="text">Scribble Test Post</title>
+  <link rel="alternate" href="https://thepineapplew.github.io/2023/05/scribble-test-post.html?utm_source=all&amp;utm_medium=Atom" />
+  <id>urn:https-thepineapplew-github-io:-2023-05-scribble-test-post-html</id>
+  <published>2023-05-15T18:12:56Z</published>
+  <updated>2023-05-15T18:12:56Z</updated>
+  <author>
+   <name>Emery Jacobowitz</name></author>
+  <content type="html">
+&lt;div class="brush: js"&gt;
+ &lt;table class="sourcetable"&gt;
+  &lt;tbody&gt;
+   &lt;tr&gt;
+    &lt;td class="linenos"&gt;
+     &lt;div class="linenodiv"&gt;
+      &lt;pre&gt;&lt;span class="normal"&gt;1&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;
+    &lt;td class="code"&gt;
+     &lt;div class="source"&gt;
+      &lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;foo&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="mf"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Lorem Ipsum Dolor Sit Amet&lt;/p&gt;
+
+&lt;div class="SCodeFlow"&gt;
+ &lt;table cellpadding="0" cellspacing="0" class="RktBlk"&gt;
+  &lt;tbody&gt;
+   &lt;tr&gt;
+    &lt;td&gt;&lt;span class="RktPn"&gt;(&lt;/span&gt;&lt;span class="RktSym"&gt;define&lt;/span&gt;&lt;span class="hspace"&gt;&amp;nbsp;&lt;/span&gt;&lt;span class="RktPn"&gt;(&lt;/span&gt;&lt;span class="RktSym"&gt;loop&lt;/span&gt;&lt;span class="hspace"&gt;&amp;nbsp;&lt;/span&gt;&lt;span class="RktSym"&gt;x&lt;/span&gt;&lt;span class="RktPn"&gt;)&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+   &lt;tr&gt;
+    &lt;td&gt;&lt;span class="hspace"&gt;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span class="RktPn"&gt;(&lt;/span&gt;&lt;span class="RktSym"&gt;loop&lt;/span&gt;&lt;span class="hspace"&gt;&amp;nbsp;&lt;/span&gt;&lt;span class="RktPn"&gt;(&lt;/span&gt;&lt;span class="RktSym"&gt;not&lt;/span&gt;&lt;span class="hspace"&gt;&amp;nbsp;&lt;/span&gt;&lt;span class="RktSym"&gt;x&lt;/span&gt;&lt;span class="RktPn"&gt;)&lt;/span&gt;&lt;span class="RktPn"&gt;)&lt;/span&gt;&lt;span class="RktPn"&gt;)&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+   &lt;tr&gt;
+    &lt;td&gt;&lt;span class="hspace"&gt;&amp;nbsp;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;
+   &lt;tr&gt;
+    &lt;td&gt;&lt;span class="RktPn"&gt;(&lt;/span&gt;&lt;span class="RktSym"&gt;loop&lt;/span&gt;&lt;span class="hspace"&gt;&amp;nbsp;&lt;/span&gt;&lt;span class="RktVal"&gt;#t&lt;/span&gt;&lt;span class="RktPn"&gt;)&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+
+&lt;p&gt;Test Test 1 2 3&lt;/p&gt;&lt;a href="https://thepineapplew.github.io/2023/05/scribble-test-post.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
  <entry>
   <title type="text">Test post</title>
   <link rel="alternate" href="https://thepineapplew.github.io/2023/05/test-post.html?utm_source=all&amp;utm_medium=Atom" />
@@ -12,7 +50,7 @@
   <published>2023-05-14T01:05:35Z</published>
   <updated>2023-05-14T01:05:35Z</updated>
   <author>
-   <name>The Unknown Author</name></author>
+   <name>Emery Jacobowitz</name></author>
   <content type="html">
 &lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;&lt;a href="https://thepineapplew.github.io/2023/05/test-post.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
  <entry>
@@ -22,7 +60,7 @@
   <published>2012-01-01T05:00:00Z</published>
   <updated>2012-01-01T05:00:00Z</updated>
   <author>
-   <name>The Unknown Author</name></author>
+   <name>Emery Jacobowitz</name></author>
   <content type="html">
 &lt;p&gt;Here is an example blog post.&lt;/p&gt;
 
