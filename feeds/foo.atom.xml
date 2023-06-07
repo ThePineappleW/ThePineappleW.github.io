@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
- <title type="text">My Blog: Posts tagged 'foo'</title>
+ <title type="text">Emery Jacobowitz : Posts tagged 'foo'</title>
  <link rel="self" href="https://thepineapplew.github.io/feeds/foo.atom.xml" />
  <link href="https://thepineapplew.github.io/tags/foo.html" />
  <id>urn:https-thepineapplew-github-io:-tags-foo-html</id>
- <updated>2012-01-01T05:00:00Z</updated>
+ <updated>2012-01-01T00:00:00Z</updated>
  <entry>
   <title type="text">A 2012 blog post</title>
   <link rel="alternate" href="https://thepineapplew.github.io/2012/01/a-2012-blog-post.html?utm_source=foo&amp;utm_medium=Atom" />
   <id>urn:https-thepineapplew-github-io:-2012-01-a-2012-blog-post-html</id>
-  <published>2012-01-01T05:00:00Z</published>
-  <updated>2012-01-01T05:00:00Z</updated>
+  <published>2012-01-01T00:00:00Z</published>
+  <updated>2012-01-01T00:00:00Z</updated>
   <author>
-   <name>The Unknown Author</name></author>
+   <name>Emery Jacobowitz</name></author>
   <content type="html">
 &lt;p&gt;Here is an example blog post.&lt;/p&gt;
 
