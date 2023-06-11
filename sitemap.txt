@@ -1,4 +1,2 @@
-https://www.jacobowitz.org/2012/01/a-2012-blog-post.html
-https://www.jacobowitz.org/2023/05/test-post.html
-https://www.jacobowitz.org/2023/05/scribble-test-post.html
+https://www.jacobowitz.org/2023/06/hello-world.html
 https://www.jacobowitz.org/About.html

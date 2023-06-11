@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <rss version="2.0">
  <channel>
-  <title>Emery Jacobowitz : Emery Jacobowitz </title>
-  <description>Emery Jacobowitz : Emery Jacobowitz </description>
-  <link>https://www.jacobowitz.org/index.html</link>
+  <title>Emery Jacobowitz : Posts tagged 'Announcement'</title>
+  <description>Emery Jacobowitz : Posts tagged 'Announcement'</description>
+  <link>https://www.jacobowitz.org/tags/Announcement.html</link>
   <lastBuildDate>Sun, 11 Jun 2023 16:12:30 UT</lastBuildDate>
   <pubDate>Sun, 11 Jun 2023 16:12:30 UT</pubDate>
   <ttl>1800</ttl>
   <item>
    <title>Hello World</title>
-   <link>https://www.jacobowitz.org/2023/06/hello-world.html?utm_source=all&amp;utm_medium=RSS</link>
+   <link>https://www.jacobowitz.org/2023/06/hello-world.html?utm_source=Announcement&amp;utm_medium=RSS</link>
    <guid isPermaLink="false">urn:https-www-jacobowitz-org:-2023-06-hello-world-html</guid>
    <pubDate>Sun, 11 Jun 2023 16:12:30 UT</pubDate>
    <author>Emery Jacobowitz</author>

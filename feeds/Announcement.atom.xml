@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
- <title type="text">Emery Jacobowitz : Emery Jacobowitz </title>
- <link rel="self" href="https://www.jacobowitz.org/feeds/all.atom.xml" />
- <link href="https://www.jacobowitz.org/index.html" />
- <id>urn:https-www-jacobowitz-org:-index-html</id>
+ <title type="text">Emery Jacobowitz : Posts tagged 'Announcement'</title>
+ <link rel="self" href="https://www.jacobowitz.org/feeds/Announcement.atom.xml" />
+ <link href="https://www.jacobowitz.org/tags/Announcement.html" />
+ <id>urn:https-www-jacobowitz-org:-tags-Announcement-html</id>
  <updated>2023-06-11T16:12:30Z</updated>
  <entry>
   <title type="text">Hello World</title>
-  <link rel="alternate" href="https://www.jacobowitz.org/2023/06/hello-world.html?utm_source=all&amp;utm_medium=Atom" />
+  <link rel="alternate" href="https://www.jacobowitz.org/2023/06/hello-world.html?utm_source=Announcement&amp;utm_medium=Atom" />
   <id>urn:https-www-jacobowitz-org:-2023-06-hello-world-html</id>
   <published>2023-06-11T16:12:30Z</published>
   <updated>2023-06-11T16:12:30Z</updated>
