@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
  <title type="text">Emery Jacobowitz : Emery Jacobowitz </title>
- <link rel="self" href="https://thepineapplew.github.io/feeds/all.atom.xml" />
- <link href="https://thepineapplew.github.io/index.html" />
- <id>urn:https-thepineapplew-github-io:-index-html</id>
+ <link rel="self" href="https://www.jacobowitz.org/feeds/all.atom.xml" />
+ <link href="https://www.jacobowitz.org/index.html" />
+ <id>urn:https-www-jacobowitz-org:-index-html</id>
  <updated>2023-05-15T13:12:56Z</updated>
  <entry>
   <title type="text">Scribble Test Post</title>
-  <link rel="alternate" href="https://thepineapplew.github.io/2023/05/scribble-test-post.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:https-thepineapplew-github-io:-2023-05-scribble-test-post-html</id>
+  <link rel="alternate" href="https://www.jacobowitz.org/2023/05/scribble-test-post.html?utm_source=all&amp;utm_medium=Atom" />
+  <id>urn:https-www-jacobowitz-org:-2023-05-scribble-test-post-html</id>
   <published>2023-05-15T13:12:56Z</published>
   <updated>2023-05-15T13:12:56Z</updated>
   <author>
@@ -42,21 +42,21 @@
    &lt;tr&gt;
     &lt;td&gt;&lt;span class="RktPn"&gt;(&lt;/span&gt;&lt;span class="RktSym"&gt;loop&lt;/span&gt;&lt;span class="hspace"&gt;&amp;nbsp;&lt;/span&gt;&lt;span class="RktVal"&gt;#t&lt;/span&gt;&lt;span class="RktPn"&gt;)&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
 
-&lt;p&gt;Test Test 1 2 3&lt;/p&gt;&lt;a href="https://thepineapplew.github.io/2023/05/scribble-test-post.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
+&lt;p&gt;Test Test 1 2 3&lt;/p&gt;&lt;a href="https://www.jacobowitz.org/2023/05/scribble-test-post.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
  <entry>
   <title type="text">Test post</title>
-  <link rel="alternate" href="https://thepineapplew.github.io/2023/05/test-post.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:https-thepineapplew-github-io:-2023-05-test-post-html</id>
+  <link rel="alternate" href="https://www.jacobowitz.org/2023/05/test-post.html?utm_source=all&amp;utm_medium=Atom" />
+  <id>urn:https-www-jacobowitz-org:-2023-05-test-post-html</id>
   <published>2023-05-13T20:05:35Z</published>
   <updated>2023-05-13T20:05:35Z</updated>
   <author>
    <name>Emery Jacobowitz</name></author>
   <content type="html">
-&lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;&lt;a href="https://thepineapplew.github.io/2023/05/test-post.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
+&lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;&lt;a href="https://www.jacobowitz.org/2023/05/test-post.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
  <entry>
   <title type="text">A 2012 blog post</title>
-  <link rel="alternate" href="https://thepineapplew.github.io/2012/01/a-2012-blog-post.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:https-thepineapplew-github-io:-2012-01-a-2012-blog-post-html</id>
+  <link rel="alternate" href="https://www.jacobowitz.org/2012/01/a-2012-blog-post.html?utm_source=all&amp;utm_medium=Atom" />
+  <id>urn:https-www-jacobowitz-org:-2012-01-a-2012-blog-post-html</id>
   <published>2012-01-01T00:00:00Z</published>
   <updated>2012-01-01T00:00:00Z</updated>
   <author>
@@ -66,4 +66,4 @@
 
 &lt;p&gt;Everything after this paragraph &amp;ldquo;after the break&amp;rdquo;. On index pages and Atom feeds, it will become &amp;ldquo;Continue reading&amp;hellip;&amp;rdquo;, if you configure them to include only the summary &amp;ldquo;blurb&amp;rdquo; before the break.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;some code&lt;/code&gt;&lt;/pre&gt;&lt;a href="https://thepineapplew.github.io/2012/01/a-2012-blog-post.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry></feed>
+&lt;pre&gt;&lt;code&gt;some code&lt;/code&gt;&lt;/pre&gt;&lt;a href="https://www.jacobowitz.org/2012/01/a-2012-blog-post.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry></feed>
