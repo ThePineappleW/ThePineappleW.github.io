@@ -4,13 +4,13 @@
  <link rel="self" href="https://www.jacobowitz.org/feeds/Announcement.atom.xml" />
  <link href="https://www.jacobowitz.org/tags/Announcement.html" />
  <id>urn:https-www-jacobowitz-org:-tags-Announcement-html</id>
- <updated>2023-06-11T16:12:30Z</updated>
+ <updated>2023-06-11T21:12:30Z</updated>
  <entry>
   <title type="text">Hello World</title>
   <link rel="alternate" href="https://www.jacobowitz.org/2023/06/hello-world.html?utm_source=Announcement&amp;utm_medium=Atom" />
   <id>urn:https-www-jacobowitz-org:-2023-06-hello-world-html</id>
-  <published>2023-06-11T16:12:30Z</published>
-  <updated>2023-06-11T16:12:30Z</updated>
+  <published>2023-06-11T21:12:30Z</published>
+  <updated>2023-06-11T21:12:30Z</updated>
   <author>
    <name>Emery Jacobowitz</name></author>
   <content type="html">
