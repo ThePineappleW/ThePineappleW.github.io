@@ -4,13 +4,27 @@
  <link rel="self" href="https://www.jacobowitz.org/feeds/all.atom.xml" />
  <link href="https://www.jacobowitz.org/index.html" />
  <id>urn:https-www-jacobowitz-org:-index-html</id>
- <updated>2023-06-11T21:12:30Z</updated>
+ <updated>2024-01-25T23:06:48Z</updated>
+ <entry>
+  <title type="text">First Impressions from Sabhal Mòr Ostaig</title>
+  <link rel="alternate" href="https://www.jacobowitz.org/2024/01/first-impressions-from-sabhal-mo%CC%80r-ostaig.html?utm_source=all&amp;utm_medium=Atom" />
+  <id>urn:https-www-jacobowitz-org:-2024-01-first-impressions-from-sabhal-mo-CC-80r-ostaig-html</id>
+  <published>2024-01-25T23:06:48Z</published>
+  <updated>2024-01-25T23:06:48Z</updated>
+  <author>
+   <name>Emery Jacobowitz</name></author>
+  <content type="html">
+&lt;h1 id="first-impressions-from-sabhal-mòr-ostaig"&gt;First Impressions from Sabhal Mòr Ostaig&lt;/h1&gt;
+
+&lt;p&gt;This is the first of a series of reflections I wrote during my time at Sabhal Mòr Ostaig, an accreditted college on the Sleat peninsula of the Isle of Skye. SMO is unique in that it offers Gaelic-language higher education in a number of fields, and is home to many of the leading academics in the field of Gaelic revitalization.&lt;/p&gt;
+
+&lt;p&gt;In this reflection, I respond to the paper &lt;a href="https://doi.org/10.1163/9789004544185_007"&gt;&lt;em&gt;Not enough words: Language acquisition and identity work in tertiary-level Gaelic-medium education.&lt;/em&gt;&lt;/a&gt; by Dr. Tim Currie Armstrong, whose lectures I attended on several occasions.&lt;/p&gt;&lt;a href="https://www.jacobowitz.org/2024/01/first-impressions-from-sabhal-mo%CC%80r-ostaig.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
  <entry>
   <title type="text">Hello World</title>
   <link rel="alternate" href="https://www.jacobowitz.org/2023/06/hello-world.html?utm_source=all&amp;utm_medium=Atom" />
   <id>urn:https-www-jacobowitz-org:-2023-06-hello-world-html</id>
-  <published>2023-06-11T21:12:30Z</published>
-  <updated>2023-06-11T21:12:30Z</updated>
+  <published>2023-06-11T17:12:30Z</published>
+  <updated>2023-06-11T17:12:30Z</updated>
   <author>
    <name>Emery Jacobowitz</name></author>
   <content type="html">
