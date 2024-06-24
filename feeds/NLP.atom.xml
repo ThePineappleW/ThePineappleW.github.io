@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?> 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
- <title type="text">Emery Jacobowitz : Emery Jacobowitz </title>
- <link rel="self" href="https://www.jacobowitz.org/feeds/all.atom.xml" />
- <link href="https://www.jacobowitz.org/index.html" />
- <id>urn:https-www-jacobowitz-org:-index-html</id>
+ <title type="text">Emery Jacobowitz : Posts tagged 'NLP'</title>
+ <link rel="self" href="https://www.jacobowitz.org/feeds/NLP.atom.xml" />
+ <link href="https://www.jacobowitz.org/tags/NLP.html" />
+ <id>urn:https-www-jacobowitz-org:-tags-NLP-html</id>
  <updated>2024-06-24T06:42:38Z</updated>
  <entry>
   <title type="text">3 NLP Assumptions that don't hold up</title>
-  <link rel="alternate" href="https://www.jacobowitz.org/2024/06/3-nlp-assumptions-that-don-t-hold-up.html?utm_source=all&amp;utm_medium=Atom" />
+  <link rel="alternate" href="https://www.jacobowitz.org/2024/06/3-nlp-assumptions-that-don-t-hold-up.html?utm_source=NLP&amp;utm_medium=Atom" />
   <id>urn:https-www-jacobowitz-org:-2024-06-3-nlp-assumptions-that-don-t-hold-up-html</id>
   <published>2024-06-24T06:42:38Z</published>
   <updated>2024-06-24T06:42:38Z</updated>
@@ -140,33 +140,4 @@
 
 &lt;p&gt;The three specific assumptions I described above may never impact any of your projects. Yet an inevitable encounter with bad multilingual assumptions is inevitable. In NLP, there’s really only one assumption to avoid: &lt;em&gt;Language X works like this, so Language &lt;strong&gt;Y probably&lt;/strong&gt; will as well&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;You don’t need to be a fluent speaker of another language to create powerful systems for it—you don’t really need to speak it at all. But it is imperative that you do your research about it. Look up what linguists have to say about its features. Find out how others have approached its challenges before. What special considerations do they make to handle its differences from English?&lt;/p&gt;&lt;a href="https://www.jacobowitz.org/2024/06/3-nlp-assumptions-that-don-t-hold-up.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
- <entry>
-  <title type="text">First Impressions from Sabhal Mòr Ostaig</title>
-  <link rel="alternate" href="https://www.jacobowitz.org/2024/01/first-impressions-from-sabhal-mo%CC%80r-ostaig.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:https-www-jacobowitz-org:-2024-01-first-impressions-from-sabhal-mo-CC-80r-ostaig-html</id>
-  <published>2024-01-25T23:06:48Z</published>
-  <updated>2024-01-25T23:06:48Z</updated>
-  <author>
-   <name>Emery Jacobowitz</name></author>
-  <content type="html">
-&lt;h1 id="first-impressions-from-sabhal-mòr-ostaig"&gt;First Impressions from Sabhal Mòr Ostaig&lt;/h1&gt;
-
-&lt;p&gt;This is the first of a series of reflections I wrote during my time at Sabhal Mòr Ostaig, an accreditted college on the Sleat peninsula of the Isle of Skye. SMO is unique in that it offers Gaelic-language higher education in a number of fields, and is home to many of the leading academics in the field of Gaelic revitalization.&lt;/p&gt;
-
-&lt;p&gt;In this reflection, I respond to the paper &lt;a href="https://doi.org/10.1163/9789004544185_007"&gt;&lt;em&gt;Not enough words: Language acquisition and identity work in tertiary-level Gaelic-medium education.&lt;/em&gt;&lt;/a&gt; by Dr. Tim Currie Armstrong, whose lectures I attended on several occasions.&lt;/p&gt;&lt;a href="https://www.jacobowitz.org/2024/01/first-impressions-from-sabhal-mo%CC%80r-ostaig.html?utm_source=all&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry>
- <entry>
-  <title type="text">Hello World</title>
-  <link rel="alternate" href="https://www.jacobowitz.org/2023/06/hello-world.html?utm_source=all&amp;utm_medium=Atom" />
-  <id>urn:https-www-jacobowitz-org:-2023-06-hello-world-html</id>
-  <published>2023-06-11T17:12:30Z</published>
-  <updated>2023-06-11T17:12:30Z</updated>
-  <author>
-   <name>Emery Jacobowitz</name></author>
-  <content type="html">
-&lt;p&gt;This is the introduction to my blog. I plan to use this site to publish projects I&amp;rsquo;ve worked on, as well as personal thoughts on various topics. Most of what I post will pertain to at least one of programming, Language and linguistics, or whatever has captured my interest at the moment.&lt;/p&gt;
-
-&lt;p&gt;My first few posts are going to be reflections from my Summer spent learning about linguistic fieldwork in small communities of Scotland.&lt;/p&gt;
-
-&lt;blockquote class="SCentered"&gt;
- &lt;p&gt;&lt;span style="font-style: italic"&gt;- Emery&lt;/span&gt;&lt;/p&gt;&lt;/blockquote&gt;</content></entry></feed>
+&lt;p&gt;You don’t need to be a fluent speaker of another language to create powerful systems for it—you don’t really need to speak it at all. But it is imperative that you do your research about it. Look up what linguists have to say about its features. Find out how others have approached its challenges before. What special considerations do they make to handle its differences from English?&lt;/p&gt;&lt;a href="https://www.jacobowitz.org/2024/06/3-nlp-assumptions-that-don-t-hold-up.html?utm_source=NLP&amp;amp;utm_medium=Atom"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</content></entry></feed>

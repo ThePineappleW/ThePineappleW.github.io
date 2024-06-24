@@ -4,9 +4,143 @@
   <title>Emery Jacobowitz : Emery Jacobowitz </title>
   <description>Emery Jacobowitz : Emery Jacobowitz </description>
   <link>https://www.jacobowitz.org/index.html</link>
-  <lastBuildDate>Thu, 25 Jan 2024 23:06:48 UT</lastBuildDate>
-  <pubDate>Thu, 25 Jan 2024 23:06:48 UT</pubDate>
+  <lastBuildDate>Mon, 24 Jun 2024 06:42:38 UT</lastBuildDate>
+  <pubDate>Mon, 24 Jun 2024 06:42:38 UT</pubDate>
   <ttl>1800</ttl>
+  <item>
+   <title>3 NLP Assumptions that don't hold up</title>
+   <link>https://www.jacobowitz.org/2024/06/3-nlp-assumptions-that-don-t-hold-up.html?utm_source=all&amp;utm_medium=RSS</link>
+   <guid isPermaLink="false">urn:https-www-jacobowitz-org:-2024-06-3-nlp-assumptions-that-don-t-hold-up-html</guid>
+   <pubDate>Mon, 24 Jun 2024 06:42:38 UT</pubDate>
+   <author>Emery Jacobowitz</author>
+   <description>
+&lt;hr /&gt;
+
+&lt;h1 id="3-nlp-assumptions-that-dont-hold-up"&gt;&lt;strong&gt;3&lt;/strong&gt;** NLP assumptions that don’t hold up**&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id="introduction"&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;As Natural Language Processing (NLP) develops as a subfield of AI, I have noticed a worrying trend of developers with no background in Linguistics. At best, this is a great opportunity for interested individuals to learn about the complexities of Language, focusing on new and exciting languages. At worst, programmers who &lt;em&gt;think&lt;/em&gt; they know everything about Language (but couldn’t tell a &lt;em&gt;realis&lt;/em&gt; from a &lt;em&gt;deontic&lt;/em&gt;) can end up leading multilingual projects with very real consequences.&lt;/p&gt;
+
+&lt;p&gt;Having an interdisciplinary background in Computer Science and Linguistics, and having worked in industry as a computational linguist, I have compiled a few (somewhat) common assumptions that the principled NLP engineer should avoid. These are not intended to be groundbreaking, complete, or academically rigorous. My goal is simply to highlight the diversity of world languages, especially in ways in which they behave unexpectedly compared to English.&lt;/p&gt;
+
+&lt;p&gt;All uncited language data are my own, based on my study (to varying extents) of those languages.&lt;/p&gt;
+
+&lt;h3 id="1-you-can-tokenize-by-whitespace"&gt;&lt;strong&gt;1. You can tokenize by whitespace.&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;Tokenization is the process of splitting a text into discrete meaningful units, or &lt;em&gt;tokens&lt;/em&gt;. This is one of the major components of data preprocessing, allowing us to target individual words instead of entire sentences or documents. So if each token corresponds to one word, we can simply segment our text by splitting on whitespace, right?&lt;/p&gt;
+
+&lt;p&gt;Let’s think about this a little more. In English, there are some concepts which are represented by sequences of characters including spaces. For example, consider ⟨New Jersey⟩&lt;sup&gt;&lt;a href="#2024-06-24-3-nlp-assumptions-that-don-t-hold-up-footnote-1-definition" name="2024-06-24-3-nlp-assumptions-that-don-t-hold-up-footnote-1-return"&gt;1&lt;/a&gt;&lt;/sup&gt; . These two words together represent one of the United States (another good example). &lt;em&gt;New&lt;/em&gt; and &lt;em&gt;jersey&lt;/em&gt; are valid words on their own, and so their combined meaning would be lost if they were tokenized separately due to the intervening space. In general, English orthography is inconsistent with compound words.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Finnish&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Other languages present different challenges. An issue arises if a single “word” includes whitespace. But what about “words” that include multiple intuitive tokens without whitespace? In &lt;a href="https://en.wiktionary.org/wiki/agglutinative"&gt;agglutinative&lt;/a&gt; languages like Finnish, it is possible to have compound words such as:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;käsipyyherullajärjestelmä&lt;/em&gt;
+ &lt;br /&gt;&lt;a href="https://uusikielemme.fi/blog-posts/the-longest-finnish-word-you-will-need"&gt;(Uusi Kielemme)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Which translates to ‘hand towel roll system’. In English, it seems perfectly reasonable to tokenize each of these words on their own, but this would require a more sophisticated approach in Finnish. It is at this point that our concept of a “word” starts to break down—and so too does our understanding of tokens. We now have to make judgments on what it means to be a word.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Inuit&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As an extreme case against simple whitespace tokenization, consider the &lt;a href="https://en.wiktionary.org/wiki/polysynthetic"&gt;polysynthetic&lt;/a&gt; Inuit languages of Alaska, Canada, and Greenland. In these languages, compound “words” can encode information about arbitrary nouns, adjectives, verbs, and pronouns. Thus, it’s possible to utter a complete sentence in one word:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;iglukpijumalaaktuŋa&lt;/em&gt;
+ &lt;br /&gt;‘I am anxious about building a house’
+ &lt;br /&gt;&lt;a href="https://books.google.com/books/about/Morphology.html?id=LkODnQEACAAJ"&gt;(Eugene Nida 1949)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Yes, &lt;em&gt;iglukpiyumalaaktuŋa&lt;/em&gt; could be parsed as a single token. Yet this defeats the motivation behind tokenization in the first place, such a token would be incredibly information-dense, abandoning the desired simplification. In English, the amount of information in a whitespace-word is generally quite small (with plenty of exceptions). Yet in the Inuit languages, this is not the case.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Chinese&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;As a final case against whitespace tokenization, there are some &lt;em&gt;&lt;a href="https://en.wikipedia.org/wiki/Scriptio_continua"&gt;scriptio continua&lt;/a&gt;&lt;/em&gt; languages like Chinese, which don’t use whitespace at all:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;我只想是你的朋友&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Try splitting that sentence on spaces alone!&lt;/p&gt;
+
+&lt;h3 id="2-all-morphology-involves-prefixes-or-suffixes"&gt;&lt;strong&gt;2. All morphology involves prefixes or suffixes.&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;Once we’ve segmented our text into tokens, the next step is often to &lt;em&gt;lemmatize&lt;/em&gt; those tokens, transforming them into their “dictionary citation” (a.k.a. lemma) forms. For example, The word &lt;em&gt;running&lt;/em&gt; becomes &lt;em&gt;run&lt;/em&gt;. This is useful for NLP as it allows us to treat all forms of a word in the same way, which comes in handy for tasks like sentiment analysis.&lt;/p&gt;
+
+&lt;p&gt;One more key term is &lt;em&gt;morphology&lt;/em&gt;, which refers to the forms of words. When &lt;em&gt;running&lt;/em&gt; is created from &lt;em&gt;run&lt;/em&gt;, we can say that the suffix &lt;em&gt;-ing&lt;/em&gt; was applied as a &lt;em&gt;morphological process&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;When lemmatizing data, many approaches simply trim off common prefixes and suffixes like ⟨ing⟩ to isolate the “stem” of a token. This approach is feasible for English, but it assumes that all morphological processes will involve prefixes or suffixes (&lt;em&gt;affixes&lt;/em&gt; in general). In other words, this method of lemmatization assumes that all morphology is &lt;em&gt;concatenative&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;English&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We must look no farther than English to discover words that break this pattern. Consider verb lemmas like &lt;em&gt;drink, swim, and fly&lt;/em&gt;. The past tense forms of these words are notably not formed with the standard suffix &lt;em&gt;-ed&lt;/em&gt;, but rather by changing the vowel: &lt;em&gt;dr&lt;/em&gt;&lt;strong&gt;&lt;em&gt;a&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;nk, sw&lt;/em&gt;&lt;strong&gt;&lt;em&gt;a&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;m, fl&lt;/em&gt;&lt;strong&gt;&lt;em&gt;ew&lt;/em&gt;&lt;/strong&gt;. This specific pattern is known as &lt;a href="https://en.wikipedia.org/wiki/Indo-European_ablaut"&gt;ablaut&lt;/a&gt; and occurs in English for historical reasons. More broadly, it is an example of non-concatenative morphology, where a grammatical change is marked without using affixes.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Arabic&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href="https://en.wikipedia.org/wiki/Semitic_languages"&gt;Semitic&lt;/a&gt; languages are notable for their “root-and-pattern” morphological systems. Let’s take Arabic as an example. We start with the root meaning ‘write’, consisting of three consonants, written from right to left:&lt;/p&gt;
+
+&lt;p&gt;ك - ت - ب
+ &lt;br /&gt;&lt;strong&gt;&lt;em&gt;k&lt;/em&gt;&lt;/strong&gt; - &lt;strong&gt;&lt;em&gt;t&lt;/em&gt;&lt;/strong&gt; - &lt;strong&gt;&lt;em&gt;b&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To say ‘I write’, we fill in the gaps between the letters with a set of vowels conveying the first-person singular present tense:&lt;/p&gt;
+
+&lt;p&gt;أكْتُب
+ &lt;br /&gt;&lt;em&gt;‘&lt;/em&gt;&lt;strong&gt;&lt;em&gt;a&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;kt&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;u&lt;/em&gt;&lt;/strong&gt;&lt;strong&gt;&lt;em&gt;b&lt;/em&gt;&lt;/strong&gt;&lt;sup&gt;&lt;a href="#2024-06-24-3-nlp-assumptions-that-don-t-hold-up-footnote-2-definition" name="2024-06-24-3-nlp-assumptions-that-don-t-hold-up-footnote-2-return"&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;To say ‘she writes’, we once again apply the vowel pattern to the root, but this time we add an extra prefix to signify the feminine gender:&lt;/p&gt;
+
+&lt;p&gt;تكْتُب
+ &lt;br /&gt;&lt;em&gt;ta&lt;/em&gt;&lt;strong&gt;&lt;em&gt;kt&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;u&lt;/em&gt;&lt;strong&gt;&lt;em&gt;b&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Because of this system, lemmatization of Arabic cannot be accomplished simply by stripping off affixes—this task requires a more sophisticated approach; it may be more valuable to isolate the root of each word if possible, which is considerably different from the English lemma form.&lt;/p&gt;
+
+&lt;p&gt;For English, non-concatenative morphology manifests in a handful of verbs and nouns with irregular tenses or plurals which could easily populate a lookup table. Yet in Arabic, many terms follow the root-and-pattern process. When preprocessing data of any language, it is often desirable to transform tokens into a simpler form—lemmas. Understanding the language’s morphology is the key to reversing the processes which derive from those lemmas, and figuring out what the lemmas represent in the first place.&lt;/p&gt;
+
+&lt;h3 id="3-textual-data-will-include-as-much-relevant-information-as-necessary"&gt;&lt;strong&gt;3. Textual data will include as much relevant information as necessary.&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;Obviously, writing doesn’t convey the same information as speech. As NLP engineers, we concede that textual data can’t capture the same intonations, gestures, and contextual nuances as a real-life conversation. Yet we tend to assume that the text in our datasets is complete—at least complete &lt;em&gt;enough&lt;/em&gt; to make reasonable judgements.&lt;/p&gt;
+
+&lt;p&gt;In English, this may be a reasonable assumption. The most commonly omitted items are things like diacritics and punctuation, and it is usually pretty easy to understand a text without these&lt;sup&gt;&lt;a href="#2024-06-24-3-nlp-assumptions-that-don-t-hold-up-footnote-3-definition" name="2024-06-24-3-nlp-assumptions-that-don-t-hold-up-footnote-3-return"&gt;3&lt;/a&gt;&lt;/sup&gt; . Yet in other languages, the extent to which items are customarily omitted from text, and the extent to which this impacts meaning, can vary greatly.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Arabic, again&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We already saw how Arabic morphology works by filling in vowels for a consonantal pattern. In Arabic orthography, these vowels are often omitted entirely, left to the reader to infer from context. This type of writing system is known as an &lt;a href="https://en.wikipedia.org/wiki/Abjad"&gt;abjad&lt;/a&gt;. The lack of vowels can introduce ambiguity into a parsing system if unaccounted for. Consider the following:&lt;/p&gt;
+
+&lt;p&gt;كتب
+ &lt;br /&gt;&lt;em&gt;ktb&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We know from earlier that these three letters comprise the root for ‘write’. By altering just the vowels, Arabic speakers can convey multiple meanings. Pay close attention to the diacritics on each word:&lt;/p&gt;
+
+&lt;p&gt;كَتَبَ
+ &lt;br /&gt;&lt;strong&gt;&lt;em&gt;k&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;a&lt;/em&gt;&lt;strong&gt;&lt;em&gt;t&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;a&lt;/em&gt;&lt;strong&gt;&lt;em&gt;b&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;a&lt;/em&gt;
+ &lt;br /&gt;‘he wrote’&lt;/p&gt;
+
+&lt;p&gt;or:&lt;/p&gt;
+
+&lt;p&gt; كُتُب &lt;strong&gt;&lt;em&gt;k&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;u&lt;/em&gt;&lt;strong&gt;&lt;em&gt;t&lt;/em&gt;&lt;/strong&gt;&lt;em&gt;u&lt;/em&gt;&lt;strong&gt;&lt;em&gt;b&lt;/em&gt;&lt;/strong&gt;
+ &lt;br /&gt;‘books’&lt;/p&gt;
+
+&lt;p&gt;Both words are represented by the same textual form, ⟨كتب⟩, which omits the vowel diacritics. Even though they are semantically related, this can result in incoherent understandings of the text, especially since the two words represent different parts of speech.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Kalabari&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Some languages use changes in pitch—known as &lt;a href="https://en.wikipedia.org/wiki/Tone_(linguistics)"&gt;tone&lt;/a&gt;—to convey various levels of information. Famously, Chinese uses tones to differentiate between words. The Chinese words for ‘mother’ and ‘horse’ are both pronounced with the same syllable, but different tones&lt;sup&gt;&lt;a href="#2024-06-24-3-nlp-assumptions-that-don-t-hold-up-footnote-4-definition" name="2024-06-24-3-nlp-assumptions-that-don-t-hold-up-footnote-4-return"&gt;4&lt;/a&gt;&lt;/sup&gt; . This difference is reflected in the orthography, as both words have different characters. Yet in some languages, tone conveys grammatical information. Let’s consider the &lt;a href="https://en.wikipedia.org/wiki/Kalabari_language"&gt;Kalabari&lt;/a&gt; language of southern Nigeria.&lt;/p&gt;
+
+&lt;p&gt;In Kalabari, tone is used to determine the &lt;em&gt;transitivity&lt;/em&gt; of verbs. A transitive verb takes a direct object, while an intransitive verb does not. In the following examples (taken from &lt;a href="https://www.isca-archive.org/tal_2016/hyman16_tal.pdf"&gt;Larry Hyman 2016&lt;/a&gt;), pay attention to the tonal diacritics:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;kíkíma&lt;/em&gt;
+ &lt;br /&gt;‘hide [something]’&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;kìkimá&lt;/em&gt;
+ &lt;br /&gt;‘be hidden’&lt;/p&gt;
+
+&lt;p&gt;As you can see, the tone has changed to convey a difference in meaning between the two verbs. Yet tones are not marked in Kalabari orthography. This difference is only apparent when analyzing spoken language. In text, it would be difficult to achieve an accurate understanding of any given word without analyzing the term’s distribution across a dataset.&lt;/p&gt;
+
+&lt;p&gt;Kalabari’s grammatical tone is a rather esoteric example of this phenomenon, which probably won’t have massive NLP impacts due to its limited grammatical function. Yet this represents a more valuable takeaway, that the pronunciation of a word is not always separable from its grammar.&lt;/p&gt;
+
+&lt;h3 id="conclusion"&gt;&lt;strong&gt;Conclusion&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;The three specific assumptions I described above may never impact any of your projects. Yet an inevitable encounter with bad multilingual assumptions is inevitable. In NLP, there’s really only one assumption to avoid: &lt;em&gt;Language X works like this, so Language &lt;strong&gt;Y probably&lt;/strong&gt; will as well&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;You don’t need to be a fluent speaker of another language to create powerful systems for it—you don’t really need to speak it at all. But it is imperative that you do your research about it. Look up what linguists have to say about its features. Find out how others have approached its challenges before. What special considerations do they make to handle its differences from English?&lt;/p&gt;&lt;a href="https://www.jacobowitz.org/2024/06/3-nlp-assumptions-that-don-t-hold-up.html?utm_source=all&amp;amp;utm_medium=RSS"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</description></item>
   <item>
    <title>First Impressions from Sabhal Mòr Ostaig</title>
    <link>https://www.jacobowitz.org/2024/01/first-impressions-from-sabhal-mo%CC%80r-ostaig.html?utm_source=all&amp;utm_medium=RSS</link>
