@@ -14,12 +14,6 @@
    <pubDate>Mon, 24 Jun 2024 06:42:38 UT</pubDate>
    <author>Emery Jacobowitz</author>
    <description>
-&lt;hr /&gt;
-
-&lt;h1 id="3-nlp-assumptions-that-dont-hold-up"&gt;&lt;strong&gt;3&lt;/strong&gt;** NLP assumptions that don’t hold up**&lt;/h1&gt;
-
-&lt;hr /&gt;
-
 &lt;h2 id="introduction"&gt;&lt;strong&gt;Introduction&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;p&gt;As Natural Language Processing (NLP) develops as a subfield of AI, I have noticed a worrying trend of developers with no background in Linguistics. At best, this is a great opportunity for interested individuals to learn about the complexities of Language, focusing on new and exciting languages. At worst, programmers who &lt;em&gt;think&lt;/em&gt; they know everything about Language (but couldn’t tell a &lt;em&gt;realis&lt;/em&gt; from a &lt;em&gt;deontic&lt;/em&gt;) can end up leading multilingual projects with very real consequences.&lt;/p&gt;
@@ -140,4 +134,6 @@
 
 &lt;p&gt;The three specific assumptions I described above may never impact any of your projects. Yet an inevitable encounter with bad multilingual assumptions is inevitable. In NLP, there’s really only one assumption to avoid: &lt;em&gt;Language X works like this, so Language &lt;strong&gt;Y probably&lt;/strong&gt; will as well&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;You don’t need to be a fluent speaker of another language to create powerful systems for it—you don’t really need to speak it at all. But it is imperative that you do your research about it. Look up what linguists have to say about its features. Find out how others have approached its challenges before. What special considerations do they make to handle its differences from English?&lt;/p&gt;&lt;a href="https://www.jacobowitz.org/2024/06/3-nlp-assumptions-that-don-t-hold-up.html?utm_source=NLP&amp;amp;utm_medium=RSS"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</description></item></channel></rss>
+&lt;p&gt;You don’t need to be a fluent speaker of another language to create powerful systems for it—you don’t really need to speak it at all. But it is imperative that you do your research about it. Look up what linguists have to say about its features. Find out how others have approached its challenges before. What special considerations do they make to handle its differences from English?&lt;/p&gt;
+
+&lt;hr /&gt;&lt;a href="https://www.jacobowitz.org/2024/06/3-nlp-assumptions-that-don-t-hold-up.html?utm_source=NLP&amp;amp;utm_medium=RSS"&gt;&lt;em&gt;More&amp;hellip;&lt;/em&gt;&lt;/a&gt;</description></item></channel></rss>
