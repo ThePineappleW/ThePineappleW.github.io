@@ -22,8 +22,20 @@ pandocCompiler' =
 defaultContext' :: Context String
 defaultContext' = faviconsField `mappend` defaultContext
 
+config :: Configuration
+config = defaultConfiguration
+  { destinationDirectory = "docs"
+  }
+
+postCtx :: Context String
+postCtx =
+  dateField "date" "%B %e, %Y"
+    `mappend` defaultContext'
+
+--------------------------------------------------------------------------------
+
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith config $ do
   faviconsRules "images/epsilon.svg"
 
   create ["css/syntax.css"] $ do
@@ -84,7 +96,3 @@ main = hakyll $ do
   match "templates/*" $ compile templateBodyCompiler
 
 --------------------------------------------------------------------------------
-postCtx :: Context String
-postCtx =
-  dateField "date" "%B %e, %Y"
-    `mappend` defaultContext'
