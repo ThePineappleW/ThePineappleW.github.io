@@ -1,11 +1,13 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 
+import qualified Data.ByteString.Lazy.Char8 as C
 import Data.Monoid (mappend)
 import Hakyll
 import Hakyll.Favicon (faviconsField, faviconsRules)
+import Text.Jasmine
 import Text.Pandoc.Highlighting (Style, haddock, styleToCss)
-import Text.Pandoc.Options (ReaderOptions (..), WriterOptions (..))
+import Text.Pandoc.Options (Extension (..), ReaderOptions (..), WriterOptions (..), enableExtension, disableExtension)
 
 --------------------------------------------------------------------------------
 pandocCodeStyle :: Style
@@ -13,24 +15,35 @@ pandocCodeStyle = haddock
 
 pandocCompiler' :: Compiler (Item String)
 pandocCompiler' =
-  pandocCompilerWith
-    defaultHakyllReaderOptions
-    defaultHakyllWriterOptions
-      { writerHighlightStyle = Just pandocCodeStyle
-      }
+  let defaultExtensions = writerExtensions defaultHakyllWriterOptions
+       in pandocCompilerWith
+            defaultHakyllReaderOptions
+            defaultHakyllWriterOptions
+              { writerHighlightStyle = Just pandocCodeStyle,
+                writerSectionDivs = True,
+                writerExtensions = enableExtension Ext_raw_attribute defaultExtensions
+              }
 
 defaultContext' :: Context String
 defaultContext' = faviconsField `mappend` defaultContext
 
 config :: Configuration
-config = defaultConfiguration
-  { destinationDirectory = "docs"
-  }
+config =
+  defaultConfiguration
+    { destinationDirectory = "docs"
+    }
 
 postCtx :: Context String
 postCtx =
   dateField "date" "%B %e, %Y"
     `mappend` defaultContext'
+
+-- From https://codethoughts.io/posts/2016-05-10-compiling-scss-and-js-in-hakyll/
+compressJsCompiler :: Compiler (Item String)
+compressJsCompiler = do
+  let minifyJS = C.unpack . minify . C.pack . itemBody
+  s <- getResourceString
+  return $ itemSetBody (minifyJS s) s
 
 --------------------------------------------------------------------------------
 
@@ -50,6 +63,10 @@ main = hakyllWith config $ do
   match "css/*" $ do
     route idRoute
     compile compressCssCompiler
+
+  match "js/*" $ do
+    route idRoute
+    compile compressJsCompiler
 
   match (fromList ["about.md"]) $ do
     route $ setExtension "html"
