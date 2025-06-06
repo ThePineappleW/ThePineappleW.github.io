@@ -18,7 +18,7 @@
 				prettyMergedColumns: true,
 				rowClasses: {1: 'source', 2: 'morphemes', 3: 'translation', 4: 'translation'},
 				selector: ".gloss",
-				showFormattingErrors: false,
+				showFormattingErrors: true,
 				syntheticLanguage: false,
 				useSmallCaps: true,
 				useFakeSmallCaps: false
@@ -61,7 +61,7 @@
 
 				*/
 
-				var preformatArray = line.match(/(!\s)?("|'((?!\s)|^)).+?("|(?=').*?"|'((?=\s)|$))|[^\s]+/g);
+				var preformatArray = line.match(/(!\s)?(`|"|'((?!\s)|^)).+?("|(?=').*?`|"|'((?=\s)|$))|[^\s]+/g);
 				
 				if(options.useSmallCaps){
 					if(options.useFakeSmallCaps)
@@ -69,7 +69,8 @@
 					else
 						preformatArray = preformatArray.map(setSmallCaps);
 				}
-
+				preformatArray = preformatArray.map(setSubAndSuperscript);
+				preformatArray = preformatArray.map(setZeroMorpheme);
 				return preformatArray;
 			},
 			configure: function(opts){
@@ -117,7 +118,7 @@
 						 ;
 
 					if(hasTitle) {
-						title = "<div class=\"gloss-row gloss-full "+options.citationClass+"\">"+lines[0]+"</div>";
+						title = "<div class=\"gloss-row gloss-full "+options.citationClass+"\">"+setSubAndSuperscript(lines[0])+"</div>";
 						lines = lines.slice(1)
 					} else {
 						title = "";
@@ -125,8 +126,6 @@
 
 					wordIdxlines =  equalizeArrayLength(lines.map(this.layout));
 					wordzips = zipn(wordIdxlines);
-
-					console.log(wordzips);
 
 					if(options.numberGlosses) {
 						output = "<div class=\"gloss-segment gloss-label\"><a href=\"#gloss"+(i+1)+"\">("+(i+1)+")</a></div>";
@@ -154,7 +153,6 @@
 					skipRow = [];
 
 					for(var col = 0; col < wordzips.length; col++){
-						console.log(col);
 						var formattedGloss = "",
 							currentColumn = wordzips[col],
 							firstChar = "";
@@ -176,8 +174,13 @@
 							else if(currentColumn[wordIdx] === "xx")
 								formattedGloss += "&nbsp;";
 							else if(firstChar === '!' || (isSynthetic && wordIdx === 1)) {
-								if(firstChar === '!')
-									fullLength.push(currentColumn[wordIdx].substring(1).trim());
+								if(firstChar === '!') {
+									str = currentColumn[wordIdx].substring(1).trim();
+									if (str.startsWith("`") && str.endsWith("`")) {
+										str = str.slice(1,-1)
+									};
+									fullLength.push(str);
+								}
 								else if(isSynthetic && wordIdx === 1) {
 									//Merge all of the columns into one full length row
 									temp = "";
@@ -263,8 +266,20 @@
 	function setSmallCaps (string) {
 		return string.replace(/\*(\S+?)\*/g, '<span class="morpheme">$1</span>');
 	}
+	function setSubAndSuperscript (string) {
+		var s = string.replace(/_{([^}]*)}/g, '<sub>$1</sub>');
+		s = s.replace(/_(\S+?)/g, '<sub>$1</sub>');
+		s = s.replace(/\^{([^}]*)}/g, '<sup>$1</sup>');
+		s = s.replace(/\^(\S+?)/g, '<sup>$1</sup>');
+
+		return s
+	}
 	function setFakeSmallCaps (string) {
 		return string.replace(/\*(\S+?)\*/g, '<span class="morpheme-fake-caps">$1</span>');
+	}
+	// replace `0` with `∅` inside the morpheme class.
+	function setZeroMorpheme (string) {
+		return string.replace(/\\0/g, '&#x2205')
 	}
 	/*
 		Find longest line length and equalize all to that length

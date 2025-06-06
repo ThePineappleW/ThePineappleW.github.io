@@ -235,9 +235,13 @@ Row Classes
 }
 
 .source {
-	font-style: italic;
+	font-style: normal;
 }
 
 .translation {
 	font-style: normal;
+}
+
+br + .gloss-row {
+  clear: both
 }
