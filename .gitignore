@@ -1,3 +1,5 @@
 _cache/
 .stack-work/
 drafts/
+.vscode/
+build.sh

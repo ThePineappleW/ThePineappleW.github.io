@@ -7,7 +7,7 @@ import Hakyll
 import Hakyll.Favicon (faviconsField, faviconsRules)
 import Text.Jasmine
 import Text.Pandoc.Highlighting (Style, haddock, styleToCss)
-import Text.Pandoc.Options (Extension (..), ReaderOptions (..), WriterOptions (..), enableExtension, disableExtension)
+import Text.Pandoc.Options (Extension (..), ReaderOptions (..), WriterOptions (..), disableExtension, enableExtension)
 
 --------------------------------------------------------------------------------
 pandocCodeStyle :: Style
@@ -16,13 +16,18 @@ pandocCodeStyle = haddock
 pandocCompiler' :: Compiler (Item String)
 pandocCompiler' =
   let defaultExtensions = writerExtensions defaultHakyllWriterOptions
-       in pandocCompilerWith
-            defaultHakyllReaderOptions
-            defaultHakyllWriterOptions
-              { writerHighlightStyle = Just pandocCodeStyle,
-                writerSectionDivs = True,
-                writerExtensions = enableExtension Ext_raw_attribute defaultExtensions
-              }
+   in pandocCompilerWith
+        defaultHakyllReaderOptions
+        defaultHakyllWriterOptions
+          { writerHighlightStyle = Just pandocCodeStyle,
+            writerSectionDivs = True,
+            writerExtensions =
+              enableExtension Ext_multiline_tables $
+                enableExtension Ext_inline_code_attributes $
+                  enableExtension
+                    Ext_raw_attribute
+                    defaultExtensions
+          }
 
 defaultContext' :: Context String
 defaultContext' = faviconsField `mappend` defaultContext

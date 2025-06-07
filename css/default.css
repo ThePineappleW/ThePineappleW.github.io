@@ -157,6 +157,50 @@ blockquote{
   position: relative;
 }
 
+.smallcaps {
+	text-transform: lowercase;
+	font-variant: small-caps;
+	-moz-font-feature-settings: "lnum";
+  -webkit-font-feature-settings: "lnum";
+  font-feature-settings: "lnum";
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: auto;
+  border: 1px solid black;
+  overflow: hidden;
+}
+
+thead th {
+  background-color: lightgray;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+thead th:not(:last-child) {
+  border-right: 1px solid black;
+}
+
+tbody td {
+  padding: 10px 10px;
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+
+tbody td:last-child {
+  border-right: none;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
 /*
 =====================================================================
 =                            Glossing rules                         =
