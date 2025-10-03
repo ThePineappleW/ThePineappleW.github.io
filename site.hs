@@ -7,27 +7,54 @@ import Hakyll
 import Hakyll.Favicon (faviconsField, faviconsRules)
 import Text.Jasmine
 import Text.Pandoc.Highlighting (Style, haddock, styleToCss)
-import Text.Pandoc.Options (Extension (..), ReaderOptions (..), WriterOptions (..), disableExtension, enableExtension)
+import Text.Pandoc.Options (Extension (..), HTMLMathMethod (..), ReaderOptions (..), WriterOptions (..), disableExtension, enableExtension)
 
 --------------------------------------------------------------------------------
+-- Extension management
+-- Thanks to https://laurentrdc.xyz/posts/making-this-website.html
+
+styleExtensions =
+  [ Ext_multiline_tables,
+    Ext_raw_attribute
+  ]
+
+mathExtensions =
+  [ Ext_tex_math_dollars,
+    Ext_tex_math_double_backslash,
+    Ext_latex_macros
+  ]
+
+codeExtensions =
+  [ Ext_fenced_code_blocks,
+    Ext_backtick_code_blocks,
+    Ext_fenced_code_attributes
+    -- Ext_inline_code_attributes
+  ]
+
+defaultExtensions = writerExtensions defaultHakyllWriterOptions
+
+newExtensions =
+  foldr
+    enableExtension
+    defaultExtensions
+    (styleExtensions <> mathExtensions <> codeExtensions)
+
+-- newExtensions =
+--------------------------------------------------------------------------------
+
 pandocCodeStyle :: Style
 pandocCodeStyle = haddock
 
 pandocCompiler' :: Compiler (Item String)
 pandocCompiler' =
-  let defaultExtensions = writerExtensions defaultHakyllWriterOptions
-   in pandocCompilerWith
-        defaultHakyllReaderOptions
-        defaultHakyllWriterOptions
-          { writerHighlightStyle = Just pandocCodeStyle,
-            writerSectionDivs = True,
-            writerExtensions =
-              enableExtension Ext_multiline_tables $
-                enableExtension Ext_inline_code_attributes $
-                  enableExtension
-                    Ext_raw_attribute
-                    defaultExtensions
-          }
+  pandocCompilerWith
+    defaultHakyllReaderOptions
+    defaultHakyllWriterOptions
+      { writerHTMLMathMethod = MathJax "",
+        writerHighlightStyle = Just pandocCodeStyle,
+        writerSectionDivs = True,
+        writerExtensions = newExtensions
+      }
 
 defaultContext' :: Context String
 defaultContext' = faviconsField `mappend` defaultContext
