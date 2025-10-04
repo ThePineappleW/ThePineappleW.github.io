@@ -179,8 +179,7 @@ thead th {
   text-align: center;
   font-weight: bold;
   border-bottom: 1px solid black;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding: 5px
 }
 
 thead th:not(:last-child) {
@@ -199,6 +198,25 @@ tbody td:last-child {
 
 tbody tr:last-child td {
   border-bottom: none;
+}
+
+pre {
+    display: block;
+    margin: 15px 0;
+    padding: 10px 15px;
+    border-left: 4px solid #4caf50;
+    background: #f5f2f0;
+    font-size: 15px;
+    white-space: normal;
+    overflow-x: auto;
+}
+
+pre:hover {
+  border-left: 4px solid #5CD460;
+}
+
+code {
+    white-space: pre;
 }
 
 /*
