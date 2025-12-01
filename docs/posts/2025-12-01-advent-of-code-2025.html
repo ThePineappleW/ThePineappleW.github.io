@@ -89,7 +89,7 @@ Since each call of <code>turn</code> corresponds to one instruction, we just nee
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="va">self</span>.val <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.zeros <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
 <p>Solving Part 1 is thus very simple. We instantiate a new <code>Dial</code>, and loop through the instructions:</p>
-<pre><code>def count_zeros(instrs: Iterable[str]) -&gt; i:
+<pre><code>def count_zeros(instrs: Iterable[str]) -&gt; int:
   d = Dial()
   for instr in instrs:
     d.turn(instr)
