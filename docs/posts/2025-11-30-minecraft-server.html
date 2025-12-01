@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emery Jacobowitz - The Programmer's Guide to Hosting a Minecraft Server</title>
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/syntax.css" />
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="../images/favicons/favicon32.png"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="../images/favicons/favicon144.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favicons/favicon114.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/favicons/favicon72.png"><link rel="apple-touch-icon-precomposed" sizes="57x57" href="../images/favicons/favicon57.png">
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="../">Emery Jacobowitz</a>
+      </div>
+      <nav>
+        <a href="../">Home</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../about.html">About</a>
+      </nav>
+    </header>
+
+    <main role="main"><article>
+    <section class="header">
+        <h1>The Programmer's Guide to Hosting a Minecraft Server</h1>
+        November 30, 2025
+        
+    </section>
+    <section>
+        <p>The simplest way to self-host a Minecraft server is to go to <a href="https://www.minecraft.net/en-us/download/server">minecraft.net</a>, download <code>minecraft_server.1.*.jar</code> and run it on your computer. This works great… until you want to use third-party server software, manage multiple servers on one computer, or track incremental changes to server files over time.</p>
+<p>These challenges are ubiquitous for pretty much all software that gets deployed on a server. Thankfully, we have a rich ecosystem of tools to deal with them. I want to discuss how I’ve used tools like Docker for Minecraft.</p>
+<p>Please keep in mind that my intended use case (a Java-edition server with &lt;10 players) may be different from yours. If you have any advice or suggestions, please feel free to reach out to me.</p>
+<section id="docker" class="level2">
+<h2>Docker</h2>
+<p>This writeup is not intended to serve as an introduction to <a href="https://www.docker.com">Docker</a>, so if you haven’t used it before I suggest you follow some tutorials before using it for Minecraft. The key thing to understand is that a Docker container is a great way to manage a Minecraft server.</p>
+<p>This task is made easy by the <a href="https://github.com/itzg/docker-minecraft-server"><code>docker-minecraft-server</code></a> image by <code>itzg</code>. There’s also a version for Bedrock edition, but I have no experience with that. I like to use Docker Compose to specify my containers, since it makes version control incredibly simple. All you need to do it create a file called <code>compose.yaml</code> and specify your configuration options. Here’s the template I use:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">mc</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> itzg/minecraft-server</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">tty</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">stdin_open</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;25565:25565&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">restart</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;always&quot;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">EULA</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;TRUE&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">MEMORY</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;6144M&quot;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">TZ</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;America/New_York&quot;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">VERSION</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1.21.8&quot;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">DIFFICULTY</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;2&quot;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">SPAWN_PROTECTION</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;0&quot;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">      OPS</span><span class="kw">: </span><span class="ch">|-</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        &lt;your-player-name&gt;</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./data:/data</span></span></code></pre></div>
+<p>Here’s a quick explanation of some of the settings:</p>
+<ul>
+<li><p><code>tty</code> and <code>stdin_open</code>: Settings for input and output through the terminal. Don’t change these unless you know what you are doing.</p></li>
+<li><p><code>ports</code>: A range of ports exposed by the container. <code>25565</code> is the default port for Minecraft, so again, I wouldn’t change this.</p>
+<ul>
+<li>If you have something that requires extra ports, like a server map or voice-chat mod, you will need to add those ports here.</li>
+<li><strong>DO NOT</strong> add the RCON port here, unless you want people to be able to access your server console from outside networks.</li>
+</ul></li>
+<li><p><code>restart</code>: Specifies the restart policy of the server. The value <code>always</code> means that the server will automatically be started again after it is stopped. Thus, you can restart the server by simply invoking the <code>/stop</code> command.</p></li>
+<li><p>The <code>environment</code> settings correspond to Minecraft server settings, and should be self explanatory. You don’t actually have to provide a game version, since the Docker image will use the latest by default. However, I don’t like it when my server updates without my explicit permission, so I always specify a game version.</p>
+<ul>
+<li>See the <a href="https://docker-minecraft-server.readthedocs.io/en/latest/configuration/server-properties/">documentation</a> for a full list of <code>server.properties</code> settings that can be specified here.</li>
+</ul></li>
+<li><p><code>volumes</code>: A mapping from directories on your computer to virtual directories in the Docker container. This can be a little tricky if you have’t used Docker before. In my compose file, I state that the <code>data</code> directory (Make sure to create this directory in the same parent directory as <code>compose.yaml</code>) should be used to house all of the server files. This directory is then mounted to the container as a volume called <code>/data</code>.</p></li>
+</ul>
+<p><strong>I highly recommend</strong> this <a href="https://setupmc.com/java-server/">configurator tool from setupmc.com</a>. It gives you a GUI for generating your compose file, and has explanations for many of the settings.</p>
+<blockquote>
+<p>Note: Docker requires root access by default. I recommend adding your user to the Docker group so you don’t have to <code>sudo</code> the following commands.</p>
+</blockquote>
+<p>Once you’ve set up your compose file, starting your server is simple. Make sure you navigate to the directory containing <code>compose.yaml</code>. Then run the following command, and you should see an output that looks similar.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker compose up <span class="at">-d</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">[+]</span> Running 2/2</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a> <span class="ex">✔</span> Network server_default  Created       0.1s</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> <span class="ex">✔</span> Container server-mc-1   Started       2.0s</span></code></pre></div>
+<p>The <code>-d</code> flag starts the container detached. To attach the container, and access the server console, you can run:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker compose attach <span class="op">&lt;</span>container-name<span class="op">&gt;</span></span></code></pre></div>
+<p><code>&lt;container-name&gt;</code> is the string shown when you created your container, e.g. <code>server-mc-1</code> in the example above.<br />
+This command should plop you into the container terminal. To detach the container again, press <code>ctrl-p</code> then <code>ctrl-q</code>.</p>
+<p>As discussed above, stopping the server <em>application</em> will just cause it to restart again. To terminate the entire Docker container, run the following command:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker compose down</span></code></pre></div>
+<p>When the server is down, it is safe to modify the files in the <code>data</code> directory. Doing this while the server is running can cause files to become corrupted and should be avoided.</p>
+<p>I like to put these three commands into short shell scripts for convenience, so that I can just run <code>./start.sh</code> etc., instead of remembering the Docker command syntax each time.</p>
+<p>The overall structure of the server directory should look something like this:</p>
+<pre><code>server
+├── data
+│   └── &lt;server files&gt;
+├── docker-compose.yaml
+├── attach.sh
+├── start.sh
+└── stop.sh</code></pre>
+<p>Another benefit of Docker is that it handles shutdown commands gracefully. For example, if you wanted to reboot your system, you would want to make sure that the Minecraft server saves the world and stops itself before terminating, or else your data could become corrupted. Docker will automatically propagate the shutdown command, eliminating the headache.</p>
+<p>While Docker can become incredibly complex for larger projects, it makes running a Minecraft server incredibly simple.</p>
+</section>
+<section id="modded-servers" class="level2">
+<h2>Modded Servers</h2>
+<p>I rarely run vanilla Minecraft servers nowadays. Even when I make a server which does not require any client-side mods, I usually use <a href="https://modrinth.com/mods?e=server&amp;f=categories:optimization">server-side Fabric mods for optimization</a> and other utilities. The traditional way to manage server mods involves manually downloading <code>.jar</code> files, placing them into the <code>mods</code> directory, and praying. If anything needs to be updated or has a version conflict (you might be familiar with the pain of installing large custom modpacks), it can take hours to find appropriate files and revert to a stable version.</p>
+<p>Surely there is a better way to do this.</p>
+<section id="packwiz" class="level3">
+<h3>Packwiz</h3>
+<p><a href="https://packwiz.infra.link">Packwiz</a> is a tool that serves as, essentially, a package manager for Minecraft mods. It provides a nice command-line interface for installing and updating mods, and specifying mod versions in plaintext. Installing it makes mod management much easier, and as a bonus, it integrates well with our existing Dockerized approach.</p>
+<p>After you’ve installed packwiz, make a new directoy in your server directory. I like to call mine simply <code>packwiz</code>. Inside that directory, you can run <code>packwiz --help</code> for the full list of commands.</p>
+<p>First, initialize your modpack with <code>packwiz init</code>. You will be prompted for information about your pack, which you should fill in with the appropriate details. You can also just hit enter for default values.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> packwiz init</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Modpack</span> name <span class="pp">[</span><span class="ss">Modpack</span><span class="pp">]</span>: server-pack</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="ex">Author:</span> Emery</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Version</span> <span class="pp">[</span><span class="ss">1.0.0</span><span class="pp">]</span>:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Minecraft</span> version <span class="pp">[</span><span class="ss">1.21.10</span><span class="pp">]</span>: 1.21.8</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Mod</span> loader <span class="pp">[</span><span class="ss">quilt</span><span class="pp">]</span>: fabric</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">Fabric</span> loader version <span class="pp">[</span><span class="ss">0.18.1</span><span class="pp">]</span>:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="ex">index.toml</span> created!</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">Refreshing</span> index... 0 % <span class="pp">[------------------------------------------]</span> done</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">pack.toml</span> created!</span></code></pre></div>
+<p>This creates two files:</p>
+<ul>
+<li><code>pack.toml</code>: Specifies the metadata you provided about your pack.</li>
+<li><code>index.toml</code>: Will contain a list of mods you to install. That list be empty for now.</li>
+</ul>
+<p>The nice thing about packwiz is that you never have to open these files yourself. The CLI commands will edit them for you.</p>
+<p>Now, we can add our mods. There are a bunch of ways to do this, so I recommend looking at the packwiz documentation and finding the methods that work best for you. I prefer to use <a href="https://modrinth.com">Modrinth</a>, and add mods by slug.</p>
+<blockquote>
+<p>A <em>slug</em> is the useful bit in a mod’s Modrinth URL.<br />
+For example, in <code>https://modrinth.com/mod/ferrite-core</code>, the mod slug is <code>ferrite-core</code>.</p>
+</blockquote>
+<p>Let’s install three mods for now:</p>
+<ul>
+<li>Ferrite Core</li>
+<li>Lithium</li>
+<li>Krypton</li>
+</ul>
+<p>For each one, run <code>packwiz modrinth install</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> packwiz modrinth install ferrite-core</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Project</span> <span class="st">&quot;FerriteCore&quot;</span> successfully added!</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> packwiz modrinth install lithium</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">Project</span> <span class="st">&quot;Lithium&quot;</span> successfully added!</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> packwiz modrinth install krypton</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ex">Project</span> <span class="st">&quot;Krypton&quot;</span> successfully added!</span></code></pre></div>
+<p>This process will automatically install mod dependencies, and will fail if the given mod doesn’t support the version of our pack.</p>
+<p>Note two things. First, the <code>index.toml</code> file now contains references to all of the installed mods. Second, we have a <code>mods</code> directory containing <code>.pw.toml</code> files each specifying the url and version info of a specific mod. Again, you don’t have to touch any of these files directly, but it’s good to understand what they represent.</p>
+<p>The <code>packwiz</code> directory should look like this:</p>
+<pre><code>packwiz
+├── index.toml
+├── mods
+│   ├── ferrite-core.pw.toml
+│   ├── krypton.pw.toml
+│   └── lithium.pw.toml
+└── pack.toml</code></pre>
+<p>Keep in mind that we have <em>not</em> actually download any of the mods yet. Packwiz has only created files that tell us <em>which</em> mods to download, and from <em>where</em>.</p>
+<p>Now it’s time to integrate our modpack with the server. <code>docker-minecraft-server</code> is especially great because it supports modded servers right out of the box. There are only a few updates we need to make to the compose file.</p>
+<p>There are two <code>environment</code> fields to add:</p>
+<ul>
+<li><code>TYPE: "Fabric"</code> is self-explanatory.
+<ul>
+<li>You can also specify the Fabric version via <code>FABRIC_LAUNCHER_VERSION: &lt;...&gt;</code>. Omitting this will default to the latest Fabric release for your server Minecraft version.</li>
+</ul></li>
+<li><code>PACKWIZ_URL: "/packwiz/pack.toml"</code> tells the Docker image where to find the modpack to install. The combination of Packwiz and Docker means that you can specify and install a modpack without ever downloading files manually, which is awesome.</li>
+</ul>
+<p>Note that the value for <code>PACKWIZ_URL</code> does <strong>not</strong> refer to the <code>packwiz</code> directory in our server directory. Instead, it refers to a virtual directory in the Docker container. Just as we had to explicitly tell Docker that the <code>data</code> directory should be mounted to the container as <code>/data/</code>, we have to do the same for <code>packwiz</code>. Therefore, we need a new item under <code>volumes</code>:</p>
+<ul>
+<li><code>./packwiz:/packwiz</code></li>
+</ul>
+<p>This step is crucial, and your modpack will not work if you forget to do this!</p>
+<p>Now, the updated <code>compose.yaml</code> will look like this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">mc</span><span class="kw">:</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> itzg/minecraft-server</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">tty</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">stdin_open</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">&quot;25565:25565&quot;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">restart</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;always&quot;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">environment</span><span class="kw">:</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">EULA</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;TRUE&quot;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">TYPE</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;Fabric&quot;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">MEMORY</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;6144M&quot;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">TZ</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;America/New_York&quot;</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">VERSION</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;1.21.8&quot;</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">DIFFICULTY</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;2&quot;</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">SPAWN_PROTECTION</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;0&quot;</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">      OPS</span><span class="kw">: </span><span class="ch">|-</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        &lt;your-player-name&gt;</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">PACKWIZ_URL</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;/packwiz/pack.toml&quot;</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./data:/data</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> ./packwiz:/packwiz</span></span></code></pre></div>
+<p>And the file structure of the entire server will look like this</p>
+<pre><code>├── data
+│   └── &lt;server-files&gt;
+├── docker-compose.yaml
+├── packwiz
+│   ├── index.toml
+│   ├── mods
+│   │   └── &lt;modpack-files&gt;
+│   └── pack.toml
+├── attach.sh
+├── start.sh
+└── stop.sh</code></pre>
+<p>You should now be able to start your server, and <code>docker-minecraft-server</code> will automatically grab your mods.</p>
+</section>
+</section>
+<section id="git" class="level2">
+<h2>Git</h2>
+<p>One of the many benefits of using Docker Compose and packwiz is that the server files can be generated deterministically from a set of text files. And the best part of working exclusively with text files is that they can be tracked seamlessly with Git.</p>
+<p>In fact, I have a single Git repo containing all of my servers. It has proven useful for version control, as I have the ability to revert to earlier versions in the frequent case that I mess up my modpacks. Another benefit is portability: setting up a server on a different machine is as simple as pulling from GitHub.</p>
+<p><code>docker-minecraft-server</code> is very powerful, and can supply pretty much all of the configuration items you would normally specify in <code>server.properties</code>.</p>
+<p>The one major caveat is that you should not attempt to track your server files themselves with Git, since the data files can be many gigabytes in size. As such, you should blacklist the data directory in your <code>.gitignore</code>:</p>
+<pre><code>**/data/</code></pre>
+<p><strong>Do not use Git for world backups</strong>.</p>
+<p>If you want to back up your worlds, you should create copies of the <code>data</code> directory locally or cloud machine, or preferably, use one of the many server-backup mods/plugins/tools that exist on the Internet.</p>
+</section>
+<section id="scripting" class="level2">
+<h2>Scripting</h2>
+<p>One of the nice things about running a server on your own machine is that you can interact with it programmatically. Minecraft servers support a protocol called <code>RCON</code>, which lets you remotely execute commands. We can use this protocol in external scripts for fun and profit.</p>
+<section id="rcon" class="level3">
+<h3><code>RCON</code></h3>
+<blockquote>
+<p>Note that <code>RCON</code> is insecure, as it transmits your password via plaintext, and gives an authenticated user a high degree of control over your server.</p>
+<p><code>docker-minecraft-server</code> sets a random <code>RCON</code> password by default, and so you should only use the provided <code>rcon-cli</code> interface.</p>
+<p>Again, you should <strong>NEVER</strong> expose the <code>RCON</code> port (25575).</p>
+</blockquote>
+<p>You can execute commands through the <code>RCON</code> interface as so:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker exec <span class="op">&lt;</span>container-name<span class="op">&gt;</span> rcon-cli <span class="op">&lt;</span>command<span class="op">&gt;</span> ...</span></code></pre></div>
+<p>Here are some examples:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker exec clms-mc-1 rcon-cli list</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="ex">There</span> are 0 of a max of 20 players online:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker exec clms-mc-1 rcon-cli say Hello World!</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># No output, but players in-game will see `[rcon] Hello World!`</span></span></code></pre></div>
+</section>
+<section id="server-restart-script" class="level3">
+<h3>Server Restart Script</h3>
+<p>How might we take advantage of this functionality?</p>
+<p>One common task is automating server restarts. It’s good to restart a server frequently to avoid memory leaks and other conditions that can cause lag. The best time to restart a server is in the middle of the night, since the fewest players will be online at 2AM. However, it’s not fun to wake up every night to manually restart the server. And if there <em>are</em> players online, they should be given a few minutes to wrap up before being kicked off.</p>
+<p>Because we set the Docker restart policy to <code>always</code>, we just have to safely stop the server, and Docker will start it up again.</p>
+<p>We can use the <code>RCON</code> interface to write a script that will automatically stop the server after a given delay. We’ll use the <code>subprocess</code> module to execute shell commands.</p>
+<p>First, we check if there are players online. If there are none, we can shut down right away. If anybody is online, we issue a warning. Then, we wait for a customizable delay. We give another warning at the 1-minute mark. And finally, we shut the server down.</p>
+<p>Here’s the full script, with a nice CLI. You can omit the <code>argparse</code> bit in favor of <code>sys.argv</code>, if you are OK with a more spartan interface.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># restart.py</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> argparse</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> subprocess <span class="im">import</span> run</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rcon(cmd: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Tries to run a command through the server's RCON interface.&quot;&quot;&quot;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> cmd.split()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> run([<span class="op">*</span>args], capture_output<span class="op">=</span><span class="va">True</span>).stdout</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">str</span>(output)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> online_players(server_name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Get the number of online players, or -1 if there is an error.&quot;&quot;&quot;</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        player_listing <span class="op">=</span> rcon(<span class="ss">f&quot;docker exec </span><span class="sc">{</span>server_name<span class="sc">}</span><span class="ss"> rcon-cli list&quot;</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">int</span>(player_listing.split()[<span class="dv">2</span>])</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span>:</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> warn_server(server_name: <span class="bu">str</span>, delay_s: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Warn the server about an impending reboot.&quot;&quot;&quot;</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    minutes, seconds <span class="op">=</span> <span class="bu">divmod</span>(delay_s, <span class="dv">60</span>)</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> minutes:</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>        delay_time <span class="op">=</span> <span class="ss">f&quot;</span><span class="sc">{</span>minutes<span class="sc">}</span><span class="ss"> minute(s)&quot;</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> seconds:</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>            delay_time <span class="op">=</span> <span class="ss">f&quot;</span><span class="sc">{</span>delay_time<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>seconds<span class="sc">}</span><span class="ss"> second(s)&quot;</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>            delay_time <span class="op">=</span> <span class="st">&quot;5 seconds&quot;</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> seconds:</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>            delay_time <span class="op">=</span> <span class="ss">f&quot;</span><span class="sc">{</span>seconds<span class="sc">}</span><span class="ss"> second(s)&quot;</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>            delay_time <span class="op">=</span> <span class="st">&quot;5 seconds&quot;</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    rcon(</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f&quot;docker exec </span><span class="sc">{</span>server_name<span class="sc">}</span><span class="ss"> rcon-cli say Server will automatically reboot in </span><span class="sc">{</span>delay_time<span class="sc">}</span><span class="ss">.&quot;</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> warn_and_wait(server_name: <span class="bu">str</span>, delay_s: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Warn players, then wait the appropriate duration.&quot;&quot;&quot;</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> delay_s <span class="op">&lt;=</span> <span class="dv">60</span>:</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>        <span class="co"># If the delay is a minute or less, only warn once.</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>        warn_server(server_name, delay_s)</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>        time.sleep(delay_s)</span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Otherwise, warn again at the 1 minute mark.</span></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>        warn_server(server_name, delay_s)</span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>        time.sleep(delay_s <span class="op">-</span> <span class="dv">60</span>)</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>        warn_server(server_name, <span class="dv">60</span>)</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>        time.sleep(<span class="dv">60</span>)</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shut_down(server_name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Shuts down the server.&quot;&quot;&quot;</span></span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>    rcon(<span class="ss">f&quot;docker exec </span><span class="sc">{</span>server_name<span class="sc">}</span><span class="ss"> rcon-cli say Rebooting server...&quot;</span>)</span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>    time.sleep(<span class="dv">5</span>)  <span class="co"># Add a slight delay just in case anybody is still online.</span></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>    rcon(<span class="ss">f&quot;docker exec </span><span class="sc">{</span>server_name<span class="sc">}</span><span class="ss"> rcon-cli stop&quot;</span>)</span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main(server_name: <span class="bu">str</span>, delay_s: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>    num_online <span class="op">=</span> online_players(server_name)</span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> num_online <span class="op">==</span> <span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span>  <span class="co"># If the server isn't running or there is some other error, do nothing.</span></span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> num_online <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>        warn_and_wait(server_name, delay_s)</span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>    shut_down(server_name)</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a>    ap <span class="op">=</span> argparse.ArgumentParser(</span>
+<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a>        prog<span class="op">=</span><span class="st">&quot;Minecraft Server Auto-Restarter&quot;</span>,</span>
+<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a>        description<span class="op">=</span><span class="st">&quot;A script that shuts down a Minecraft server in a Docker container after a delay.&quot;</span>,</span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a>    ap.add_argument(</span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;-n&quot;</span>, <span class="st">&quot;--name&quot;</span>, <span class="bu">type</span><span class="op">=</span><span class="bu">str</span>, required<span class="op">=</span><span class="va">True</span>, <span class="bu">help</span><span class="op">=</span><span class="st">&quot;The name of the Docker container&quot;</span></span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a>    ap.add_argument(</span>
+<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;-d&quot;</span>,</span>
+<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;--delay&quot;</span>,</span>
+<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a>        <span class="bu">type</span><span class="op">=</span><span class="bu">int</span>,</span>
+<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a>        required<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>        default<span class="op">=</span><span class="dv">300</span>,</span>
+<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a>        <span class="bu">help</span><span class="op">=</span><span class="st">&quot;The delay in restarting the server in seconds after the initial announcement. Do not make this more than 59m59s.&quot;</span>,</span>
+<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a>    args <span class="op">=</span> ap.parse_args()</span>
+<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a>    main(args.name, args.delay)</span></code></pre></div>
+<p>Now, we just have to make the script executable, and it should work.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> +x restart.py</span></code></pre></div>
+</section>
+<section id="cron" class="level3">
+<h3>Cron</h3>
+<p>The last piece of the puzzle is to automate the running of our script. You could theoretically use Python or the language of your choice to automate this, but there exists a simpler alternative that comes preinstalled with most Linux distros: Cron.</p>
+<p>If you are not familiar with Cron, I recommend you go through a <a href="https://linuxhandbook.com/crontab/#difference-between-cron-crontab-and-cron-job">tutorial</a> before using it for the first time, as I won’t discuss all the intricacies here.</p>
+<p>To automate our script, we need to add a new job to the Cron table. Let’s say we want to run our script nightly at 2AM. First, open your crontab file:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crontab</span> <span class="at">-e</span></span></code></pre></div>
+<p>This should open a text editor (perhaps after prompting your for which one to use).<br />
+Add the following line:</p>
+<pre><code>0 2 * * * ~/path/to/restart.py</code></pre>
+<p>Then close the editor. The five positions before the path to the script specify the time it should be run.<br />
+From the left, the script will be run on:</p>
+<ul>
+<li><code>0</code>: the 0th minute</li>
+<li><code>2</code>: of the 2nd hour</li>
+<li><code>*</code>: of every day of the month</li>
+<li><code>*</code>: of every month of the year</li>
+<li><code>*</code>: on every day of the week.</li>
+</ul>
+<p>Note that your system clock might not be set to your timezone. Mine is set to GMT, but I live in GMT-5:00, so I would set my hour digit to <code>7</code>.</p>
+<p>Save the file and then your script will be set to run! When you take your server down, you can run <code>crontab -e</code> again and comment out this line.</p>
+<p>You can use cron for any number of tasks, such as automating backups.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2>Conclusion</h2>
+<p>These are some of the tools I use in maintaining Minecraft servers. Keep in mind that people keep developing new ones, so it’s a good idea to periodically check forums to see what people are using. Furthermore, there are a lot of ways to run a Minecraft server, and different approaches might be suited to each one.</p>
+<p>Overall, the important takeaways from this writeup are:</p>
+<ul>
+<li><p>You can use developer tools to great effect in hosting Minecraft servers.</p></li>
+<li><p>Things that are good practice in software development, such as containerization and dependency management, are useful elsewhere.</p></li>
+<li><p>Be careful not to expose your Minecraft server to external threats. Use a whitelist. Keep online mode enabled. And do not expose any more ports than you absolutely need.</p>
+<ul>
+<li>I am not responsible if you get pwned.</li>
+</ul></li>
+</ul>
+</section>
+    </section>
+</article>
+</main>
+
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+  <script type="text/javascript" src="../js/interlinear.js"></script>
+</html>
