@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emery Jacobowitz - Advent of Code 2025 Solutions</title>
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/syntax.css" />
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="../images/favicons/favicon32.png"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="../images/favicons/favicon144.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favicons/favicon114.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/favicons/favicon72.png"><link rel="apple-touch-icon-precomposed" sizes="57x57" href="../images/favicons/favicon57.png">
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="../">Emery Jacobowitz</a>
+      </div>
+      <nav>
+        <a href="../">Home</a>
+        <a href="../blog.html">Blog</a>
+        <a href="../about.html">About</a>
+      </nav>
+    </header>
+
+    <main role="main"><article>
+    <section class="header">
+        <h1>Advent of Code 2025 Solutions</h1>
+        December  1, 2025
+        
+    </section>
+    <section>
+        <p><a href="https://adventofcode.com">Advent of Code</a> is an annual programming challenge in the month of December.
+I highly recommend you check it out—the puzzles tend to be very creative and well-designed.
+This year, there are 12 daily puzzles.</p>
+<p>I’ll be updating this blog post with my solutions for each of the puzzles.<br />
+<strong>There will be spoilers</strong>.<br />
+Please do not look at this page until you have made an honest effort to complete the puzzles yourself.</p>
+<p>My implementations for this and prior years are available on <a href="https://github.com/ThePineappleW/AdventOfCode">GitHub</a>.</p>
+<p>One final note: My solutions are not guaranteed to be optimal, efficient, or even a little bit clever.
+I enjoy AOC because it helps me improve as a programmer. If you think any of my implementations could be improved, please let me know.</p>
+<p>Now onto the puzzles.</p>
+<section id="day-1" class="level2">
+<h2>Day 1</h2>
+<p><a href="https://adventofcode.com/2025/day/1">Puzzle link</a></p>
+<section id="python" class="level3">
+<h3>Python</h3>
+<p>This puzzle requires us to track the state of a circular dial with numbers <code>0</code>-<code>99</code>.
+Since we want to represent the physical state of an object, let’s make a class.
+A <code>Dial</code> will simply store current value of the dial.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dial:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.val <span class="op">=</span> <span class="dv">50</span> <span class="co"># The starting position</span></span></code></pre></div>
+<p>We can then add methods to represent turning the dial left and right.
+I think it is preferable to have each method turn the dial exactly one position in the appropriate direction.
+This makes the roll-over (<code>99 &lt;-&gt; 0</code>) in each direction very obvious,
+and we can process any instruction by repeatedly calling one of these two methods.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dial:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.val <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> left(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.val <span class="op">=</span> <span class="va">self</span>.val <span class="op">-</span> <span class="dv">1</span> <span class="cf">if</span> <span class="va">self</span>.val <span class="cf">else</span> <span class="dv">99</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> right(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.val <span class="op">=</span> <span class="va">self</span>.val <span class="op">+</span> <span class="dv">1</span> <span class="cf">if</span> <span class="va">self</span>.val <span class="op">&lt;</span> <span class="dv">99</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> turn(<span class="va">self</span>, instr: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    direction <span class="op">=</span> instr[<span class="dv">0</span>]</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    amount <span class="op">=</span> <span class="bu">int</span>(instr[<span class="dv">1</span>:])</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(amount):</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> direction <span class="op">==</span> <span class="st">'L'</span>:</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.left()</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span>:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.right()</span></code></pre></div>
+<p>For Part 1 of the problem, we need to count the number of times the dial is at <code>0</code> after processing an instruction.
+First, we’ll add a field to the class, <code>zeros</code>, which tracks this count.
+Since each call of <code>turn</code> corresponds to one instruction, we just need to update <code>zeros</code> after exiting the loop.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> turn(<span class="va">self</span>, instr: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  direction <span class="op">=</span> instr[<span class="dv">0</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  amount <span class="op">=</span> <span class="bu">int</span>(instr[<span class="dv">1</span>:])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(amount):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="op">==</span> <span class="st">'L'</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.left()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.right()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="va">self</span>.val <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.zeros <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
+<p>Solving Part 1 is thus very simple. We instantiate a new <code>Dial</code>, and loop through the instructions:</p>
+<pre><code>def count_zeros(instrs: Iterable[str]) -&gt; i:
+  d = Dial()
+  for instr in instrs:
+    d.turn(instr)
+  return d.zeros</code></pre>
+<p>The twist in Part 2 is that we need to count <em>every time</em> the dial reaches or passes over <code>0</code>.
+The decision to decompose each instruction into a series of individual rotations makes this really easy.
+In fact, we just need to move the value check in <code>turn</code> <em>inside</em> the loop.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> turn(<span class="va">self</span>, instr: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  direction <span class="op">=</span> instr[<span class="dv">0</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  amount <span class="op">=</span> <span class="bu">int</span>(instr[<span class="dv">1</span>:])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(amount):</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="op">==</span> <span class="st">'L'</span>:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.left()</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.right()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="op">-&gt;</span>  <span class="cf">if</span> <span class="va">self</span>.val <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">-&gt;</span>    <span class="va">self</span>.zeros <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
+<p>That’s it!</p>
+</section>
+</section>
+    </section>
+</article>
+</main>
+
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+  <script type="text/javascript" src="../js/interlinear.js"></script>
+</html>
