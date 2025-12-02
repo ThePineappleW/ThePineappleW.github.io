@@ -215,8 +215,18 @@ pre:hover {
   border-left: 4px solid #5CD460;
 }
 
-code {
-    white-space: pre;
+code:not(pre code) {
+    border: .5px solid #1f1e1d40;
+    border-radius: .3rem;
+    padding: 1px 4px;
+    white-space: pre-wrap;
+    font-size: smaller;
+    background-color: #3d3d3a0d;
+    color: #8a2424;
+}
+
+pre code {
+  white-space: pre-wrap;
 }
 
 /*
