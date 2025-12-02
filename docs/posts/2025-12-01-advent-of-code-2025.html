@@ -8,6 +8,24 @@
     <link rel="stylesheet" href="../css/default.css" />
     <link rel="stylesheet" href="../css/syntax.css" />
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>
+      // Triple-click to highlight code blocks. Stolen from Eric Wastl (adventofcode.com).
+      window.addEventListener("click", function (e, s, r) {
+        if (e.detail === 3) {
+          const codeElement = e.target.closest("pre");
+          console.log(e.target);
+          console.log(codeElement);
+          console.log("\n");
+          if (codeElement) {
+            s = window.getSelection();
+            s.removeAllRanges();
+            r = document.createRange();
+            r.selectNodeContents(codeElement);
+            s.addRange(r);
+          }
+        }
+      });
+    </script>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="../images/favicons/favicon32.png"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="../images/favicons/favicon144.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favicons/favicon114.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/favicons/favicon72.png"><link rel="apple-touch-icon-precomposed" sizes="57x57" href="../images/favicons/favicon57.png">
   </head>
   <body>
@@ -39,8 +57,11 @@ Please do not look at this page until you have made an honest effort to complete
 <p>One final note: My solutions are not guaranteed to be optimal, efficient, or even a little bit clever.
 I enjoy AOC because it helps me improve as a programmer. If you think any of my implementations could be improved, please let me know.</p>
 <p>Now onto the puzzles.</p>
-<section id="day-1" class="level2">
-<h2>Day 1</h2>
+<p><br>
+<br>
+<br></p>
+<section id="day-1" class="level1">
+<h1>Day 1</h1>
 <p><a href="https://adventofcode.com/2025/day/1">Puzzle link</a></p>
 <section id="python" class="level3">
 <h3>Python</h3>
@@ -57,17 +78,17 @@ and we can process any instruction by repeatedly calling one of these two method
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Dial:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.val <span class="op">=</span> <span class="dv">50</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> left(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.val <span class="op">=</span> <span class="va">self</span>.val <span class="op">-</span> <span class="dv">1</span> <span class="cf">if</span> <span class="va">self</span>.val <span class="cf">else</span> <span class="dv">99</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> right(<span class="va">self</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.val <span class="op">=</span> <span class="va">self</span>.val <span class="op">+</span> <span class="dv">1</span> <span class="cf">if</span> <span class="va">self</span>.val <span class="op">&lt;</span> <span class="dv">99</span> <span class="cf">else</span> <span class="dv">0</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> turn(<span class="va">self</span>, instr: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    direction <span class="op">=</span> instr[<span class="dv">0</span>]</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    amount <span class="op">=</span> <span class="bu">int</span>(instr[<span class="dv">1</span>:])</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(amount):</span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> direction <span class="op">==</span> <span class="st">'L'</span>:</span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.left()</span>
@@ -79,13 +100,13 @@ Since each call of <code>turn</code> corresponds to one instruction, we just nee
 <div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> turn(<span class="va">self</span>, instr: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  direction <span class="op">=</span> instr[<span class="dv">0</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  amount <span class="op">=</span> <span class="bu">int</span>(instr[<span class="dv">1</span>:])</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(amount):</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="op">==</span> <span class="st">'L'</span>:</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.left()</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.right()</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="va">self</span>.val <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.zeros <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
 <p>Solving Part 1 is thus very simple. We instantiate a new <code>Dial</code>, and loop through the instructions:</p>
@@ -100,13 +121,13 @@ In fact, we just need to move the value check in <code>turn</code> <em>inside</e
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> turn(<span class="va">self</span>, instr: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  direction <span class="op">=</span> instr[<span class="dv">0</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  amount <span class="op">=</span> <span class="bu">int</span>(instr[<span class="dv">1</span>:])</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(amount):</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> direction <span class="op">==</span> <span class="st">'L'</span>:</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.left()</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.right()</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="op">-&gt;</span>  <span class="cf">if</span> <span class="va">self</span>.val <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">-&gt;</span>    <span class="va">self</span>.zeros <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
 <p>That’s it!</p>

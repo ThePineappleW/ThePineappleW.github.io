@@ -8,6 +8,24 @@
     <link rel="stylesheet" href="./css/default.css" />
     <link rel="stylesheet" href="./css/syntax.css" />
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>
+      // Triple-click to highlight code blocks. Stolen from Eric Wastl (adventofcode.com).
+      window.addEventListener("click", function (e, s, r) {
+        if (e.detail === 3) {
+          const codeElement = e.target.closest("pre");
+          console.log(e.target);
+          console.log(codeElement);
+          console.log("\n");
+          if (codeElement) {
+            s = window.getSelection();
+            s.removeAllRanges();
+            r = document.createRange();
+            r.selectNodeContents(codeElement);
+            s.addRange(r);
+          }
+        }
+      });
+    </script>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="./images/favicons/favicon32.png"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="./images/favicons/favicon144.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="./images/favicons/favicon114.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="./images/favicons/favicon72.png"><link rel="apple-touch-icon-precomposed" sizes="57x57" href="./images/favicons/favicon57.png">
   </head>
   <body>
