@@ -131,6 +131,65 @@ In fact, we just need to move the value check in <code>turn</code> <em>inside</e
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="op">-&gt;</span>  <span class="cf">if</span> <span class="va">self</span>.val <span class="op">==</span> <span class="dv">0</span>:</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="op">-&gt;</span>    <span class="va">self</span>.zeros <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
 <p>That’s it!</p>
+<p><br></p>
+</section>
+</section>
+<section id="day-2" class="level1">
+<h1>Day 2</h1>
+<p><a href="https://adventofcode.com/2025/day/2">Puzzle link</a></p>
+<section id="python-1" class="level3">
+<h3>Python</h3>
+<p>This puzzle involves discerning “invalid” numbers from a list of integer ranges.
+For Part 1, a number is “invalid” if it consists of some sequence of digits repeated twice.</p>
+<p>So, for arbitrary digits <code>A</code> and <code>B</code>, the numbers <code>AA</code>, <code>ABAB</code>, <code>ABAABA</code>, etc. are invalid.</p>
+<p>Since we’re concerned with the structure of digits in a string, this immediately strikes me as a regular expression problem.
+I’m sure there’s an efficient mathematical way to determine if a number fits the criterion,
+but regular expressions are much closer to natural language, and are thus easier to implement.</p>
+<p>Here’s the regex we need:</p>
+<pre><code>^(\d+)\1$</code></pre>
+<p>Let’s break it down.</p>
+<ul>
+<li><p><code>^</code>: Anchor to the beginning of the string</p></li>
+<li><p><code>(\d+)</code>: Match one or more numerical digits (<code>\d</code> is the same as <code>[0-9]</code>).
+We create a <em>capturing group</em> by wrapping this subexpression in parentheses.
+This is basically a note to the regex engine to keep track of whatever was matched here, so we can refer to it later.</p></li>
+<li><p><code>\1</code>: A <em>backreference</em> to the first (and only) capturing group we defined.
+This will evaluate to the value matched by the preceding <code>(\d+)</code>.</p></li>
+<li><p><code>$</code>: Anchor to the end of the string.</p></li>
+</ul>
+<p>Putting all those together, we represent a string which consists entirely of
+a sequence of one or more digits, followed by that same sequence again.</p>
+<p>All we need are a few helper functions. First we’ll parse the input.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_input(s: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">list</span>[<span class="bu">list</span>[<span class="bu">int</span>]]:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> [[<span class="bu">int</span>(n) <span class="cf">for</span> n <span class="kw">in</span> rng.split(<span class="st">&quot;-&quot;</span>)] <span class="cf">for</span> rng <span class="kw">in</span> s.split(<span class="st">&quot;,&quot;</span>)]</span></code></pre></div>
+<p>Then, we’ll filter out all of the valid numbers, and add up everything left.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>double_pattern <span class="op">=</span> re.<span class="bu">compile</span>(<span class="vs">r&quot;</span><span class="dv">^</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="ch">\1</span><span class="dv">$</span><span class="vs">&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_invalid_in_range(start: <span class="bu">int</span>, end: <span class="bu">int</span>, pattern: re.Pattern) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">sum</span>(i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(start, end <span class="op">+</span> <span class="dv">1</span>) <span class="cf">if</span> re.match(pattern, <span class="bu">str</span>(i)))</span></code></pre></div>
+<p>There are two things to note. First, make sure to use <code>re.compile</code> to pre-compile the regex.
+All of the functions in Python’s <code>re</code> module can consume regular expressions
+in either the form of a <code>str</code> or an <code>re.Pattern</code>. In the former case, it will automatically compile the regex.
+Since we’ll be using the same regex a lot of times in a loop, we don’t Python to have to parse it into an identical <code>Pattern</code> every single time.</p>
+<p>Second, we use <code>re.match</code> to check if our string fits the pattern.
+Python has a handful of similarly-named functions, and it’s important to use the right one.
+<code>re.match</code> will be truthy if the given string <em>starts with</em> a sequence that matches the pattern.
+It’s OK to use it here because the regex pattern is anchored to the beginning and end of the string.
+If you didn’t include the <code>^...$</code> anchors, you would need to use <code>re.fullmatch</code> instead.</p>
+<p>The documentation includes a <a href="https://docs.python.org/3/library/re.html#search-vs-match">writeup</a> explaining the difference between these functions and <code>re.search</code>.</p>
+<p>Finally, we just need to call <code>add_invalid_in_range</code> on every single range.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sum_invalid(s: <span class="bu">str</span>, pattern: re.Pattern) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">sum</span>(add_invalid_in_range(<span class="op">*</span>rng, pattern) <span class="cf">for</span> rng <span class="kw">in</span> parse_input(s))</span></code></pre></div>
+<p>This is the solution to Part 1! Regex lets us solve it with three one-liners and a pattern.</p>
+<p>Part 2 requires us to expand the criterion for invalid items.
+Now, a number is invalid if it consists of two <em>or more</em> repetitions of a sequence of digits.</p>
+<p>This is trivial to implement, because regular expressions are so great at this kind of quantifications.
+In fact, we just need to add a single character to the original pattern:</p>
+<pre><code>^(\d+)\1+$
+        ^</code></pre>
+<p>The <code>+</code> quantifier means we’ll match <em>one or more</em> extra instances of the original sequence. Voilà.</p>
+<p>As a final note, this solution is not particularly efficient. Regex is slow.
+But it is a very powerful tool for reasoning about the structure of text, and for converting high-level descriptions into actionable programs.</p>
 </section>
 </section>
     </section>
