@@ -167,11 +167,7 @@ a sequence of one or more digits, followed by that same sequence again.</p>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_invalid_in_range(start: <span class="bu">int</span>, end: <span class="bu">int</span>, pattern: re.Pattern) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">sum</span>(i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(start, end <span class="op">+</span> <span class="dv">1</span>) <span class="cf">if</span> re.match(pattern, <span class="bu">str</span>(i)))</span></code></pre></div>
-<p>There are two things to note. First, make sure to use <code>re.compile</code> to pre-compile the regex.
-All of the functions in Python’s <code>re</code> module can consume regular expressions
-in either the form of a <code>str</code> or an <code>re.Pattern</code>. In the former case, it will automatically compile the regex.
-Since we’ll be using the same regex a lot of times in a loop, we don’t Python to have to parse it into an identical <code>Pattern</code> every single time.</p>
-<p>Second, we use <code>re.match</code> to check if our string fits the pattern.
+<p>Note that we use <code>re.match</code> to check if our string fits the pattern.
 Python has a handful of similarly-named functions, and it’s important to use the right one.
 <code>re.match</code> will be truthy if the given string <em>starts with</em> a sequence that matches the pattern.
 It’s OK to use it here because the regex pattern is anchored to the beginning and end of the string.
@@ -190,7 +186,59 @@ In fact, we just need to add a single character to the original pattern:</p>
 <p>The <code>+</code> quantifier means we’ll match <em>one or more</em> extra instances of the original sequence. Voilà.</p>
 <p>As a final note, this solution is not particularly efficient. Regex is slow.
 But it is a very powerful tool for reasoning about the structure of text, and for converting high-level descriptions into actionable programs.</p>
+<p><br>
+<br></p>
 </section>
+</section>
+<section id="day-3" class="level1">
+<h1>Day 3</h1>
+<p><a href="https://adventofcode.com/2025/day/3">Puzzle link</a></p>
+</section>
+<section id="python-2" class="level1">
+<h1>Python</h1>
+<p>Today’s puzzle is again digits-based. Given a string of digits, we have to find the maximum two-digit number than can be made by selecting digits left-to-right. The greatest number that can be made with the string <code>9582</code> is <code>98</code>, but the maximum of <code>8592</code> is 92.</p>
+<p>The key observation is that we need to maximize the first digit. Once we do that, we can select the greatest value from all digits to the right of the first one we picked.</p>
+<p>Finding the index of the greatest value in a list is a function called <a href="https://en.wikipedia.org/wiki/Arg_max"><code>argmax</code></a>, which is commonly used in machine learning. Here’s a Pythonic implementation thereof:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> argmax(lst: <span class="bu">list</span>[<span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">tuple</span>[<span class="bu">int</span>, <span class="bu">int</span>]:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&quot;&quot;&quot;Returns the index and the value of the greatest element in the list.&quot;&quot;&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">max</span>(<span class="bu">enumerate</span>(lst), key <span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="dv">1</span>])</span></code></pre></div>
+<p><code>enumerate(...)</code> returns a list of <code>(</code>index<code>,</code>value<code>)</code> tuples, within which we find the tuple that has the maximum value, and return it. Note that we’re returning both the index <em>and</em> the maximum value, because we’ll need both to solve the puzzle.</p>
+<p>We can use <code>argmax</code> to find the greatest number to use as the tens digit. It is important that we do not search the entire list of values, because we will still need to find the ones digit. What if our input was something like <code>529</code>? The maximum value is <code>9</code>, but because this is the last value, it could only ever be the ones digit. Here’s my implementation of Part 1:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> max_two_digits(digits: <span class="bu">list</span>[<span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  idx, left <span class="op">=</span> argmax(digits[:<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  _, right <span class="op">=</span> argmax(digits[idx <span class="op">+</span> <span class="dv">1</span>:])</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  result <span class="op">=</span> <span class="dv">10</span> <span class="op">*</span> left <span class="op">+</span> right</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> result</span></code></pre></div>
+<p>The first line finds the left (tens) digit; note that it excludes the final value as explained above. Once the left digit has been found, the list is partitioned right after it. We take the argmax again to find the right (ones) digit, but this time only search the portion of the list <em>after</em> the index of the left digit.</p>
+<p>Finally we just need a couple of helper functions to parse the input from text to lists of integers, and add up all the joltages:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> parse_file(f):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&quot;&quot;&quot;Splits the input file into lists of integers.&quot;&quot;&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> line <span class="kw">in</span> f:</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">yield</span> [<span class="bu">int</span>(n) <span class="cf">for</span> n <span class="kw">in</span> line.strip()]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sum_joltages(f, n:<span class="bu">int</span>, verbose<span class="op">=</span><span class="va">False</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">&quot;&quot;&quot;Finds the total joltage for a file-like containing battery levels.&quot;&quot;&quot;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="bu">sum</span>(max_two_digits(digits) <span class="cf">for</span> digits <span class="kw">in</span> parse_file(f))</span></code></pre></div>
+<p>That’s it for Part 1!</p>
+<p>Part 2 predictably asks us to generalize from two-digit numbers. It specifically asks us for 12 digits, but we’ll implement a function that works for all numbers &gt;1.</p>
+<p>This isn’t particularly difficult because we were already very close. The procedure for <code>max_two_digits</code> is just to call <code>argmax</code>, then shrink the list and call <code>argmax</code> again.
+To generalize, we just have to make this a recursive function. Call <code>argmax</code>, then shrink the list and recur. There are a few tricky points to discuss, but here’s the generalized solution for Part 2:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> max_n_digits(digits: <span class="bu">list</span>[<span class="bu">int</span>], n: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">  Returns the greatest n-digit number  that can be constructed</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">  from the provided list of digits, left-to-right.</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">  &quot;&quot;&quot;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  n_1 <span class="op">=</span> n <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  right_bound <span class="op">=</span> <span class="op">-</span>n_1 <span class="kw">or</span> <span class="va">None</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  idx, digit <span class="op">=</span> argmax(digits[:right_bound])</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> digit</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">else</span>:</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (digit <span class="op">*</span> <span class="dv">10</span> <span class="op">**</span> n_1) <span class="op">+</span> max_n_digits(digits[idx <span class="op">+</span> <span class="dv">1</span>:], n_1)</span></code></pre></div>
+<p><code>right_bound</code> represents the indices to reserve from each search for the maximum digit. When we’re looking for the first of 12 digits, we know for certain that it won’t be within the last 11 (<code>n - 1</code>) values in the list. In the base case where <code>n</code> = <code>1</code>, we don’t want to exclude any values. Slicing a list at <code>[:-0]</code> will give us the empty list, so we need to ensure that the end index is <code>None</code> in this case.</p>
+<p>The sum is built up by adding the maximum digit mulitplied by <span class="math inline">\(10^{n-1}\)</span>, which corresponds to the appropriate place-value.</p>
+<p>A speedy and elegant solution for a somewhat simple puzzle. Because Advent of Code is only 12 days this year, I suspect the difficulty will start ramping up soon.</p>
 </section>
     </section>
 </article>
