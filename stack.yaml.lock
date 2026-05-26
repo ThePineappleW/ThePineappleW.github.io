@@ -25,6 +25,13 @@ packages:
       size: 2242
   original:
     hackage: language-javascript-0.6.0.13
+- completed:
+    hackage: base64-bytestring-1.2.1.0@sha256:45305ccf8914c66d385b518721472c7b8c858f1986945377f74f85c1e0d49803,2502
+    pantry-tree:
+      sha256: 9e58b1adc5eb2805118c1539d325363d94043370671fb0f13fbe90aaeea3ff44
+      size: 850
+  original:
+    hackage: base64-bytestring-1.2.1.0
 snapshots:
 - completed:
     sha256: 296a7960c37efa382432ab497161a092684191815eb92a608c5d6ea5f894ace3

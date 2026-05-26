@@ -1,0 +1,21 @@
+title: "Sample Puzzle"
+date: "2026-01-25"
+kind: "mini"
+board: |-
+ ##OJS
+ #OPEN
+ INTEL
+ QUIZ#
+ SSN##
+across:
+  - "Some breakfast drinks, for short"
+  - "Ready for business"
+  - "Information gathered by a spy"
+  - "Highest-scoring Scrabble word with four tiles (22)"
+  - "Nine-digit ID"
+down:
+  - "Agree to receive promotional emails, say"
+  - "Second-highest-scoring Scrabble word with four tiles (20)"
+  - "Sketch comedy show since '75"
+  - "Burden"
+  - "Geniuses have high ones"
