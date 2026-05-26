@@ -1,0 +1,7 @@
+<ul>
+    $for(projects)$
+        <li>
+            <a href="$url$">$title$</a> $if(github)$[<a href=$github$>Code</a>] $endif$$if(paper)$[<a href=$paper$>Paper</a>] $endif$ &mdash; $description$
+        </li>
+    $endfor$
+</ul>

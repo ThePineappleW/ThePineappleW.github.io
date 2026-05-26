@@ -28,6 +28,7 @@ import Data.Char (ord, isAlpha)
 import qualified Data.Base64.Types as B64
 import GHC.IO.Encoding (setLocaleEncoding, utf8)
 import System.FilePath (takeBaseName)
+import Data.Maybe (fromMaybe)
 
 --------------------------------------------------------------------------------
 -- Extension management
@@ -148,6 +149,16 @@ b64Hash txt =
   let onlyAlpha = T.toUpper $ T.filter isAlpha txt in
     T.unpack $ B64.extractBase64 (B64.encodeBase64 onlyAlpha)
 
+puzzleCtx :: Context String
+puzzleCtx =
+  let stripDate = L.drop 11 in
+  let enspace = map (\c -> if c == '_' then ' ' else c) in
+  field "title" (\item -> do
+    let path = toFilePath (itemIdentifier item)
+    let title = enspace $ stripDate $ takeBaseName path
+    return title)
+  `mappend` postCtx
+
 puzzleCompiler :: Compiler (Item String)
 puzzleCompiler = do
     item <- getResourceLBS
@@ -171,12 +182,34 @@ puzzleCompiler = do
                     defaultContext'
 
             makeItem ""
-                >>= loadAndApplyTemplate "templates/crossword.html" cluesCtx
+                >>= loadAndApplyTemplate "templates/puzzles/crossword.html" cluesCtx
                 >>= loadAndApplyTemplate "templates/default.html" cluesCtx
                 >>= relativizeUrls
 
+--------------------------------------------------------------------------------
+-- Project functions
+--------------------------------------------------------------------------------
 
+sortByRank :: [Item a] -> Compiler [Item a]
+sortByRank items = do
+    withRank <- mapM addRank items
+    return $ map snd $ sortOn fst withRank
+  where
+    addRank item = do
+        rankStr <- getMetadataField (itemIdentifier item) "rank"
+        let n = fromMaybe maxBound (rankStr >>= readMaybe)
+        return (n :: Int, item)
 
+    readMaybe s = case reads s of
+        [(x, "")] -> Just x
+        _         -> Nothing
+
+projectCompiler :: Compiler (Item String)
+projectCompiler = do
+    pandocCompiler'
+          >>= loadAndApplyTemplate "templates/projects/project.html" postCtx
+          >>= loadAndApplyTemplate "templates/default.html" postCtx
+          >>= relativizeUrls
 
 
 --------------------------------------------------------------------------------
@@ -211,41 +244,34 @@ main = do
           >>= loadAndApplyTemplate "templates/default.html" defaultContext'
           >>= relativizeUrls
 
-    match "puzzles/*.yaml" $ do
+    match "projects/**.md" $ do
       route $ setExtension "html"
-      compile puzzleCompiler
+      compile projectCompiler
+    
+    match "projects/**.pdf" $ do
+      route idRoute
+      compile copyFileCompiler
+
+    create ["projects.html"] $ do
+      route idRoute
+      compile $ do
+        projects <- sortByRank =<< loadAll "projects/**.md"
+        let archiveCtx =
+              listField "projects" defaultContext' (return projects)
+                `mappend` constField "title" "Project list"
+                `mappend` defaultContext'
+
+        makeItem ""
+          >>= loadAndApplyTemplate "templates/projects/projects.html" archiveCtx
+          >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+          >>= relativizeUrls
 
     match "posts/**.md" $ do
       route $ setExtension "html"
       compile $
         pandocCompiler'
-          >>= loadAndApplyTemplate "templates/post.html" postCtx
+          >>= loadAndApplyTemplate "templates/blog/post.html" postCtx
           >>= loadAndApplyTemplate "templates/default.html" postCtx
-          >>= relativizeUrls
-
-    create ["puzzles.html"] $ do
-      route idRoute
-      compile $ do
-        -- We want to sort puzzles by date.
-        -- However, Hakyll can't automatically recognize a YAML date field unless it's in the file name.
-        -- But we don't want the date in the label when we have it on the site.
-        -- So we have to do a little bit of meshugas to get rid of that part.
-        puzzles <- recentFirst =<< loadAll "puzzles/*.yaml"
-        let stripDate = L.drop 11
-        let enspace = map (\c -> if c == '_' then ' ' else c)
-        let puzzleCtx =
-              field "title" (\item -> do
-                let path = toFilePath (itemIdentifier item)
-                let title = enspace $ stripDate $ takeBaseName path
-                return title)
-              `mappend` postCtx
-        let puzzleArchiveCtx =
-              listField "puzzles" puzzleCtx (return puzzles)
-                `mappend` constField "title" "Puzzle Archives"
-                `mappend` defaultContext'
-        makeItem ""
-          >>= loadAndApplyTemplate "templates/puzzles.html" puzzleArchiveCtx
-          >>= loadAndApplyTemplate "templates/default.html" puzzleArchiveCtx
           >>= relativizeUrls
 
     create ["blog.html"] $ do
@@ -258,23 +284,49 @@ main = do
                 `mappend` defaultContext'
 
         makeItem ""
-          >>= loadAndApplyTemplate "templates/blog.html" archiveCtx
+          >>= loadAndApplyTemplate "templates/blog/blog.html" archiveCtx
           >>= loadAndApplyTemplate "templates/default.html" archiveCtx
+          >>= relativizeUrls
+
+    match "puzzles/*.yaml" $ do
+      route $ setExtension "html"
+      compile puzzleCompiler
+
+    create ["puzzles.html"] $ do
+      route idRoute
+      compile $ do
+        -- We want to sort puzzles by date.
+        -- However, Hakyll can't automatically recognize a YAML date field unless it's in the file name.
+        -- But we don't want the date in the label when we have it on the site.
+        -- So we have to do a little bit of meshugas to get rid of that part.
+        puzzles <- recentFirst =<< loadAll "puzzles/**.yaml"        
+        let puzzleArchiveCtx =
+              listField "puzzles" puzzleCtx (return puzzles)
+                `mappend` constField "title" "Puzzle Archives"
+                `mappend` defaultContext'
+        makeItem ""
+          >>= loadAndApplyTemplate "templates/puzzles/puzzles.html" puzzleArchiveCtx
+          >>= loadAndApplyTemplate "templates/default.html" puzzleArchiveCtx
           >>= relativizeUrls
 
     match "index.html" $ do
       route idRoute
       compile $ do
-        posts <- recentFirst =<< loadAll "posts/*"
+        -- Only take the first 5 of each type on the main page.
+        posts    <- fmap (take 5) (recentFirst =<< loadAll "posts/*")
+        projects <- fmap (take 5) (sortByRank =<< loadAll "projects/**.md")
+        puzzles  <- fmap (take 5) (recentFirst =<< loadAll "puzzles/**.yaml")
         let indexCtx =
-              listField "posts" postCtx (return posts)
-                `mappend` defaultContext'
+              listField "posts" postCtx (return posts) <>
+              listField "projects" defaultContext' (return projects) <>
+              listField "puzzles" puzzleCtx (return puzzles) <>
+              defaultContext'
 
         getResourceBody
-          >>= applyAsTemplate indexCtx
-          >>= loadAndApplyTemplate "templates/default.html" indexCtx
-          >>= relativizeUrls
+            >>= applyAsTemplate indexCtx
+            >>= loadAndApplyTemplate "templates/default.html" indexCtx
+            >>= relativizeUrls
 
-    match "templates/*" $ compile templateBodyCompiler
+    match "templates/**" $ compile templateBodyCompiler
 
 --------------------------------------------------------------------------------
