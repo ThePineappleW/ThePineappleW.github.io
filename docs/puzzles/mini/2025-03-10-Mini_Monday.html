@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Emery Jacobowitz - Themeless</title>
-    <link rel="stylesheet" href="../css/default.css" />
-    <link rel="stylesheet" href="../css/syntax.css" />
-    <link rel="stylesheet" href="../css/crosswords.css" />
+    <title>Emery Jacobowitz - Mini Monday I</title>
+    <link rel="stylesheet" href="../../css/default.css" />
+    <link rel="stylesheet" href="../../css/syntax.css" />
+    <link rel="stylesheet" href="../../css/crosswords.css" />
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <script>
       // Triple-click to highlight code blocks. Stolen from Eric Wastl (adventofcode.com).
@@ -27,25 +27,25 @@
         }
       });
     </script>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="../images/favicons/favicon32.png"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="../images/favicons/favicon144.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favicons/favicon114.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/favicons/favicon72.png"><link rel="apple-touch-icon-precomposed" sizes="57x57" href="../images/favicons/favicon57.png">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="../../images/favicons/favicon32.png"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../images/favicons/favicon144.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../images/favicons/favicon114.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../images/favicons/favicon72.png"><link rel="apple-touch-icon-precomposed" sizes="57x57" href="../../images/favicons/favicon57.png">
   </head>
   <body>
     <header>
       <div class="logo">
-        <a href="../">Emery Jacobowitz</a>
+        <a href="../../">Emery Jacobowitz</a>
       </div>
       <nav>
-        <a href="../">Home</a>
-        <a href="../blog.html">Blog</a>
-        <a href="../projects.html">Projects</a>
-        <a href="../puzzles.html">Puzzles</a>
-        <a href="../about.html">About</a>
+        <a href="../../">Home</a>
+        <a href="../../blog.html">Blog</a>
+        <a href="../../projects.html">Projects</a>
+        <a href="../../puzzles.html">Puzzles</a>
+        <a href="../../about.html">About</a>
       </nav>
     </header>
 
     <main role="main"><div class="main-container">
-  <h1 class="puzzle-title">Themeless</h1>
-  <h1 class="puzzle-date">2026-05-26</h1>
+  <h1 class="puzzle-title">Mini Monday I</h1>
+  <h1 class="puzzle-date">2025-03-10</h1>
   <div class="timer-box">
     <span class="timer-display" id="timer-display">00:00</span>
   </div>
@@ -68,16 +68,16 @@
     // ========================================
     // CONFIGURATION - Change these values
     // ========================================
-    const ROWS = 15;
-    const COLS = 15;
+    const ROWS = 5;
+    const COLS = 5;
     const CELL_SIZE = 50;
-    const WALLS = [[0,4],[0,10],[1,4],[1,10],[2,10],[3,6],[4,0],[4,1],[4,2],[4,7],[4,13],[4,14],[5,8],[6,5],[6,11],[7,4],[7,10],[8,3],[8,9],[9,6],[10,0],[10,1],[10,7],[10,12],[10,13],[10,14],[11,8],[12,4],[13,4],[13,10],[14,4],[14,10]];
+    const WALLS = [[0,0],[0,1],[1,0],[3,4],[4,3],[4,4]];
     
-    const ACROSS_CLUES = ["Boston civil rights activist Melnea","Clear ____","Word with pop or bowl","Westernmost Aleutian","____ Island","Do-others connector","One lacking sesame or poppy seeds?","Would ____ to you?","Ink","Spices up","Tether","Seeps","Prepares to operate","Go downhill","Bards","Strode anxiously","Elba, to Napoleon","Treats a sprain","Name of several rulers of Roman Judea","Manfred von Richthofen, et al.","Proterozoic, e.g.","Gave up","Inflict, as revenge","Finger, or perhaps a foot?","Second editions","Arabic letter forms","Certain logic gates","Orchard, in Milan","Sacred symbols","Memory-safe language","Orange relatives","Feed the kitty","Famous British John","____ Soetero, stepfather of Barack Obama","Land of Lenin","Served as croupier","General ____ chicken"];
-    const DOWN_CLUES = ["One above a col.","Show about four elements, briefly","At once!","American, British, and Italian","Groves","Encryption std.","Venetian ruler","Glandular prefix","Jaundiced","Tremble","\"... __________ find an excuse.\"","Have-for connector","Actresses Kravitz and Saldaña","Green gamers","Menswear brand","Swindled","Gathered intel, perhaps","Tropical bean","Develops a coating, again.","Small knife","Opt","Places to see chicks","Manuscript","Like a motorcyclist, ideally","The reason for the seasons","Biological sac","404, e.g.","Shred","Powerful","Clichéd","Dortmund dame","Nylon woes","London's prov.","Adam's grandson","Anthony's 'Knick'-name","Auth. options","Objetivo de fútbol"];
+    const ACROSS_CLUES = ["Fox rival","____ butter (hair care product)","Shrek's residence","Popular bubble tea flavor","One might request a PIN"];
+    const DOWN_CLUES = ["Bracelet accessory","Found fish?","One might be taken on a couch","Hit, as a fly","North or South, on the MBTA"];
     
     // Hash of the solution string (cells read left-to-right, top-to-bottom, walls skipped)
-    const PUZZLE_HASH = "Q0FTU0FTREFZUVVJWkFUVFVSSE9ERVVOVE9QTEFJTkJBR0VMSUxJRVRBVFRPT0VOTElWRU5TQ09SRE9PWkVTU0NSVUJTVVBXT1JTRU5QT0VUU1BBQ0VESUxFSUNFU0hFUk9EQUNFU0VPTkNFREVERVhBQ1REQUNUWUxSRVBSSU5UU1JBU01TWE9SU0ZSVVRURVRPVE9URU1TUlVTVFRBTkdFUklORVNBTlRFRUxUT05MT0xPVVNTUkRFQUxUVFNPUw==";
+    const PUZZLE_HASH = "Q05OU0hFQVNXQU1QVEFST0FUTQ==";
     // ========================================
 
     const grid = document.getElementById('grid');
@@ -656,5 +656,5 @@
       <a href="http://jaspervdj.be/hakyll">Hakyll</a>
     </footer>
   </body>
-  <script type="text/javascript" src="../js/interlinear.js"></script>
+  <script type="text/javascript" src="../../js/interlinear.js"></script>
 </html>

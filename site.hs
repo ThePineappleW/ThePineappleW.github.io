@@ -288,7 +288,7 @@ main = do
           >>= loadAndApplyTemplate "templates/default.html" archiveCtx
           >>= relativizeUrls
 
-    match "puzzles/*.yaml" $ do
+    match "puzzles/**.yaml" $ do
       route $ setExtension "html"
       compile puzzleCompiler
 
@@ -313,7 +313,7 @@ main = do
       route idRoute
       compile $ do
         -- Only take the first 5 of each type on the main page.
-        posts    <- fmap (take 5) (recentFirst =<< loadAll "posts/*")
+        posts    <- fmap (take 5) (recentFirst =<< loadAll "posts/*.md")
         projects <- fmap (take 5) (sortByRank =<< loadAll "projects/**.md")
         puzzles  <- fmap (take 5) (recentFirst =<< loadAll "puzzles/**.yaml")
         let indexCtx =
