@@ -5,6 +5,7 @@ cabal-version:      >= 1.10
 
 executable site
   main-is:          site.hs
+  other-modules:    Crossword
   build-depends:    base == 4.*
                   , hakyll == 4.16.*
                   , pandoc == 3.6.*

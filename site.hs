@@ -30,6 +30,8 @@ import GHC.IO.Encoding (setLocaleEncoding, utf8)
 import System.FilePath (takeBaseName)
 import Data.Maybe (fromMaybe)
 
+import Crossword (puzzleCtx, puzzleCompiler)
+
 --------------------------------------------------------------------------------
 -- Extension management
 -- Thanks to https://laurentrdc.xyz/posts/making-this-website.html
@@ -107,84 +109,12 @@ compressJsCompiler = do
   return $ itemSetBody (minifyJS s) s
 
 --------------------------------------------------------------------------------
--- Crossword puzzle functions
+-- Crossword puzzle setup
 --------------------------------------------------------------------------------
 
-data Puzzle =
-    Puzzle  { title   :: T.Text
-            , date    :: T.Text
-            , kind    :: T.Text
-            , comment :: Maybe T.Text
-            , board   :: T.Text
-            , across  :: [T.Text]
-            , down    :: [T.Text]
-    }
+puzzleCtx' = puzzleCtx postCtx
 
-instance FromJSON Puzzle where
-  parseJSON = withObject "Puzzle" $ \o ->
-    Puzzle <$> o .: "title"
-           <*> o .: "date"
-           <*> o .:? "kind" .!= "standard"
-           <*> o .:? "comment"
-           <*> o .: "board"
-           <*> o .: "across"
-           <*> o .: "down"
-
-puzzleDimensions :: T.Text -> (Int, Int)
-puzzleDimensions str =
-  let lines = T.lines str in
-  case lines of
-    [] -> (0, 0)
-    first:_ -> (length lines, T.length first)
-
-wallPositions :: T.Text -> [[Int]]
-wallPositions str =
-  let lines = T.lines str in
-    foldl (\acc (i, row) -> acc ++ map (\col_id -> [i, col_id]) (L.elemIndices '#' (T.unpack row)))
-     []
-     (zip [0..] lines)
-
-b64Hash :: T.Text -> String
-b64Hash txt =
-  let onlyAlpha = T.toUpper $ T.filter isAlpha txt in
-    T.unpack $ B64.extractBase64 (B64.encodeBase64 onlyAlpha)
-
-puzzleCtx :: Context String
-puzzleCtx =
-  let stripDate = L.drop 11 in
-  let enspace = map (\c -> if c == '_' then ' ' else c) in
-  field "title" (\item -> do
-    let path = toFilePath (itemIdentifier item)
-    let title = enspace $ stripDate $ takeBaseName path
-    return title)
-  `mappend` postCtx
-
-puzzleCompiler :: Compiler (Item String)
-puzzleCompiler = do
-    item <- getResourceLBS
-    let yamlBytes = BS.toStrict $ itemBody item
-
-    case decodeEither' yamlBytes of
-        Left err -> fail $ "YAML parse error: " ++ show err
-        Right puzzle -> do
-            let (nrows, ncols) = puzzleDimensions (board puzzle)
-            let walls = wallPositions (board puzzle)
-            let puzzleHash = b64Hash (board puzzle)
-            let cluesCtx =
-                    constField "title" (T.unpack (title puzzle)) <>
-                    constField "date" (T.unpack (date puzzle)) <>
-                    constField "rows" (show nrows) <>
-                    constField "columns" (show ncols) <>
-                    constField "hash" (show puzzleHash) <>
-                    constField "walls" (show walls) <>
-                    constField "across" (TL.unpack (TLE.decodeUtf8 (encode (across puzzle)))) <>
-                    constField "down" (TL.unpack (TLE.decodeUtf8 (encode (down puzzle)))) <>
-                    defaultContext'
-
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/puzzles/crossword.html" cluesCtx
-                >>= loadAndApplyTemplate "templates/default.html" cluesCtx
-                >>= relativizeUrls
+puzzleCompiler' = puzzleCompiler defaultContext'
 
 --------------------------------------------------------------------------------
 -- Project functions
@@ -290,7 +220,7 @@ main = do
 
     match "puzzles/**.yaml" $ do
       route $ setExtension "html"
-      compile puzzleCompiler
+      compile puzzleCompiler'
 
     create ["puzzles.html"] $ do
       route idRoute
@@ -301,7 +231,7 @@ main = do
         -- So we have to do a little bit of meshugas to get rid of that part.
         puzzles <- recentFirst =<< loadAll "puzzles/**.yaml"        
         let puzzleArchiveCtx =
-              listField "puzzles" puzzleCtx (return puzzles)
+              listField "puzzles" puzzleCtx' (return puzzles)
                 `mappend` constField "title" "Puzzle Archives"
                 `mappend` defaultContext'
         makeItem ""
@@ -319,7 +249,7 @@ main = do
         let indexCtx =
               listField "posts" postCtx (return posts) <>
               listField "projects" defaultContext' (return projects) <>
-              listField "puzzles" puzzleCtx (return puzzles) <>
+              listField "puzzles" puzzleCtx' (return puzzles) <>
               defaultContext'
 
         getResourceBody
