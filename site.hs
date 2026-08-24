@@ -25,6 +25,7 @@ import GHC.Generics
 import GHC.IO.Encoding (setLocaleEncoding, utf8)
 import Hakyll
 import Hakyll.Favicon (faviconsField, faviconsRules)
+import Search (buildSearchMetadata, searchIndexCompiler, searchMetadataCompiler)
 import System.FilePath (takeBaseName)
 import System.IO.Unsafe (unsafePerformIO)
 import Text.Jasmine
@@ -252,6 +253,22 @@ main = do
         getResourceBody
           >>= applyAsTemplate indexCtx
           >>= loadAndApplyTemplate "templates/default.html" indexCtx
+          >>= relativizeUrls
+
+    create ["search-index.json"] $ do
+      route idRoute
+      compile searchIndexCompiler
+
+    create ["search-meta.json"] $ do
+      route idRoute
+      compile searchMetadataCompiler
+
+    create ["search.html"] $ do
+      route idRoute
+      compile $ do
+        makeItem ""
+          >>= loadAndApplyTemplate "templates/search/search-results.html" defaultContext'
+          >>= loadAndApplyTemplate "templates/default.html" defaultContext'
           >>= relativizeUrls
 
     match "templates/**" $ compile templateBodyCompiler

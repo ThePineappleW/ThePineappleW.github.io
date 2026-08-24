@@ -6,6 +6,7 @@ cabal-version:      >= 1.10
 executable site
   main-is:          site.hs
   other-modules:    Crossword
+                  , Search
   build-depends:    base == 4.*
                   , hakyll == 4.16.*
                   , pandoc == 3.6.*
@@ -14,6 +15,8 @@ executable site
                   , bytestring == 0.12.*
                   , aeson
                   , text
+                  , containers
+                  , json
                   , yaml
                   , base64
                   , filepath

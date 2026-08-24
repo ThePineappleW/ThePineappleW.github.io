@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/syntax.css" />
     <link rel="stylesheet" href="../../css/crosswords.css" />
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script type="text/javascript" src="../../js/searchbar.js"></script>
     <script>
       // Triple-click to highlight code blocks. Stolen from Eric Wastl (adventofcode.com).
       window.addEventListener("click", function (e, s, r) {
@@ -30,17 +31,28 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="../../images/favicons/favicon32.png"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../images/favicons/favicon144.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../images/favicons/favicon114.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../images/favicons/favicon72.png"><link rel="apple-touch-icon-precomposed" sizes="57x57" href="../../images/favicons/favicon57.png">
   </head>
   <body>
-    <header>
-      <div class="logo">
-        <a href="../../">Emery Jacobowitz</a>
+    <header style="
+        display: grid;
+        grid-template-columns: 4fr 10fr 1fr 2fr;
+        grid-template-areas: &quot;logo nav . search &quot;;
+      ">
+      <div class="logo" style="grid-area: logo">
+        <a href="../../"> Emery Jacobowitz </a>
       </div>
-      <nav>
-        <a href="../../">Home</a>
+      <nav style="grid-area: nav">
+        <!-- <a href="/">Home</a> -->
         <a href="../../blog.html">Blog</a>
         <a href="../../projects.html">Projects</a>
         <a href="../../puzzles.html">Puzzles</a>
         <a href="../../about.html">About</a>
       </nav>
+      <div class="searchbar-container" style="grid-area: search">
+        <form action="/search.html" method="get">
+  <input type="text" name="q" placeholder="Search..." autocomplete="off" />
+  <button type="submit">🔎︎</button>
+</form>
+
+      </div>
     </header>
 
     <main role="main"><div class="main-container">

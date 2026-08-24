@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -13,6 +13,7 @@
       async
       src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
     ></script>
+    <script type="text/javascript" src="/js/searchbar.js"></script>
     <script>
       // Triple-click to highlight code blocks. Stolen from Eric Wastl (adventofcode.com).
       window.addEventListener("click", function (e, s, r) {
@@ -34,17 +35,26 @@
     $favicons$
   </head>
   <body>
-    <header>
-      <div class="logo">
-        <a href="/">Emery Jacobowitz</a>
+    <header
+      style="
+        display: grid;
+        grid-template-columns: 4fr 10fr 1fr 2fr;
+        grid-template-areas: &quot;logo nav . search &quot;;
+      "
+    >
+      <div class="logo" style="grid-area: logo">
+        <a href="/"> Emery Jacobowitz </a>
       </div>
-      <nav>
-        <a href="/">Home</a>
+      <nav style="grid-area: nav">
+        <!-- <a href="/">Home</a> -->
         <a href="/blog.html">Blog</a>
         <a href="/projects.html">Projects</a>
         <a href="/puzzles.html">Puzzles</a>
         <a href="/about.html">About</a>
       </nav>
+      <div class="searchbar-container" style="grid-area: search">
+        $partial("templates/search/searchbar.html")$
+      </div>
     </header>
 
     <main role="main">$body$</main>

@@ -1,0 +1,14 @@
+<div class="main-search-container">
+  <h1>Search</h1>
+  $partial("templates/search/searchbar.html")$
+  <br />
+</div>
+<hr />
+<div class="search-results-container">
+  <h2 id="search-query">Searching...</h2>
+  <ul id="search-results-list"></ul>
+</div>
+<hr />
+<script>
+  getSearchResults();
+</script>

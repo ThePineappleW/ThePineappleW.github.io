@@ -7,12 +7,17 @@ body {
   color: #000;
 }
 
+.main-search-container {
+  margin: auto;
+  text-align: center;
+}
+
 header {
   border-bottom: 0.2rem solid #000;
 }
 
 nav {
-  text-align: right;
+  text-align: left;
 }
 
 nav a {
@@ -121,7 +126,7 @@ article .header {
   }
   nav {
     margin: 0;
-    text-align: right;
+    /* text-align: right; */
   }
   nav a {
     margin: 0 0 0 1.2rem;
