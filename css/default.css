@@ -10,6 +10,7 @@ body {
 .main-search-container {
   margin: auto;
   text-align: center;
+  width: 50%;
 }
 
 header {
