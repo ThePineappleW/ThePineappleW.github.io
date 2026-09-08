@@ -201,7 +201,7 @@ formatScryfallLink (Card name set number) =
     ++ formatScryfallParam "set" set
     ++ formatScryfallParam "number" number
     ++ "href=\"#\">"
-    ++ name
+    ++ L.dropWhile (== '!') name
     ++ "<img class=\"mtg-popup\" src=\"/images/placeholder_card.png\"></a>`{=html}"
 
 generateMTGEmbed :: String -> String

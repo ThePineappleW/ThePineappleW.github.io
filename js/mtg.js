@@ -53,9 +53,14 @@ class ImageManager {
   // --- Below: your existing logic, split into fetch vs. apply ---
 
   async _fetchImage(url) {
-    console.log(`Fetching ${url}...`)
-    const card = await fetch(url).then(res => res.json());
-    return card["data"][0]["image_uris"]["normal"]; 
+    const cards = await fetch(url).then(res => res.json());
+    let card = cards["data"][0]
+    // Handle DFCs
+    if (card.hasOwnProperty("card_faces")){
+      card = card["card_faces"][0];
+    }
+
+    return card["image_uris"]["normal"]; 
   }
 
   _applyResult(elem, url, result) {

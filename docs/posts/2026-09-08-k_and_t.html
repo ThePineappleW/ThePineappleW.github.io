@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emery Jacobowitz - Deck Tech: Kydele and Thrasios</title>
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="../css/syntax.css" />
+    <link rel="stylesheet" href="../css/crosswords.css" />
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script type="text/javascript" src="../js/searchbar.js"></script>
+    <script>
+      // Triple-click to highlight code blocks. Stolen from Eric Wastl (adventofcode.com).
+      window.addEventListener("click", function (e, s, r) {
+        if (e.detail === 3) {
+          const codeElement = e.target.closest("pre");
+          console.log(e.target);
+          console.log(codeElement);
+          console.log("\n");
+          if (codeElement) {
+            s = window.getSelection();
+            s.removeAllRanges();
+            r = document.createRange();
+            r.selectNodeContents(codeElement);
+            s.addRange(r);
+          }
+        }
+      });
+    </script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="../images/favicons/favicon32.png"><link rel="apple-touch-icon-precomposed" sizes="144x144" href="../images/favicons/favicon144.png"><link rel="apple-touch-icon-precomposed" sizes="114x114" href="../images/favicons/favicon114.png"><link rel="apple-touch-icon-precomposed" sizes="72x72" href="../images/favicons/favicon72.png"><link rel="apple-touch-icon-precomposed" sizes="57x57" href="../images/favicons/favicon57.png">
+  </head>
+  <body>
+    <header style="
+        display: grid;
+        grid-template-columns: 4fr 10fr 1fr 1fr;
+        grid-template-areas: &quot;logo nav . search &quot;;
+      ">
+      <div class="logo" style="grid-area: logo">
+        <a href="../"> Emery Jacobowitz </a>
+      </div>
+      <nav style="grid-area: nav">
+        <!-- <a href="/">Home</a> -->
+        <a href="../blog.html">Blog</a>
+        <a href="../projects.html">Projects</a>
+        <a href="../puzzles.html">Puzzles</a>
+        <a href="../about.html">About</a>
+      </nav>
+      <div class="searchbar-container" style="grid-area: search">
+        <form action="/search.html" method="get" style="display: flex">
+  <input type="text" name="q" placeholder="Search..." autocomplete="off" style="min-width: 20px; flex: 1 1 auto" />
+  <button type="submit">🔎︎</button>
+</form>
+
+      </div>
+    </header>
+
+    <main role="main"><article>
+    <section class="header">
+        <h1>Deck Tech: Kydele and Thrasios</h1>
+        September  8, 2026
+        
+    </section>
+    <section>
+        <blockquote>
+<p>The cistern contains, the fountain overflows.<br />
+          – William Blake</p>
+</blockquote>
+<section id="introduction" class="level2">
+<h2>Introduction</h2>
+<p>I have often said that drawing cards and making mana are the two most enjoyable game actions in Magic: the Gathering. With this Commander deck, prepare to maximize them both with a lot of Simic goodstuff.</p>
+<p>The twin commanders are <a class="mtg-link" target="_blank" data-name="Kydele, Chosen of Kruphix" href="#">Kydele, Chosen of Kruphix<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Thrasios, Triton Hero" href="#">Thrasios, Triton Hero<img class="mtg-popup" src="../images/placeholder_card.png"></a>.</p>
+<p>The commander choice immediate raises the question of partners. Why pick two commanders in the same color identity? Using a different partner, like <a class="mtg-link" target="_blank" data-name="Vial Smasher the Fierce" href="#">Vial Smasher the Fierce<img class="mtg-popup" src="../images/placeholder_card.png"></a> or <a class="mtg-link" target="_blank" data-name="Tymna the Weaver" href="#">Tymna the Weaver<img class="mtg-popup" src="../images/placeholder_card.png"></a> would unlock two extra colors.</p>
+<p>With two colors, we can develop a much more focused deck with a more consistent mana base. It is not necessary to devote a large number of slots to color fixing. In philosophy, Kydele is the primary commander in this deck, while Thrasios is an additional value engine in the command zone. The deck produces interesting games which frequently result in victories, so I feel no desire to add more colors.</p>
+</section>
+<section id="bracketing" class="level2">
+<h2>Bracketing</h2>
+<p>I consider this deck to be a powerful Bracket 3. While it has the ability to win on turn 2 with the ideal draw, it was not constructed with the intent of being as fast as possible. It lacks an optimal manabase, and many of the free spells and fast mana that would be expected of a Bracket 4 deck. The main limiting factor is the inconvenience of buying cards due to prohibitive monetary cost or just general annoyance with online retailers.</p>
+</section>
+<section id="the-game-plan" class="level2">
+<h2>The Game Plan</h2>
+<p>K&amp;T is a combo deck. It typically develops a very limited boardstate—interaction resides mostly in the hand—aiming literally to keep its cards close to the chest before winning the game in a brief explosive sequence.</p>
+</section>
+<section id="combos" class="level2">
+<h2>Combos</h2>
+<p>The primary combo is <a class="mtg-link" target="_blank" data-name="Kydele, Chosen of Kruphix" href="#">Kydele, Chosen of Kruphix<img class="mtg-popup" src="../images/placeholder_card.png"></a> plus <a class="mtg-link" target="_blank" data-name="Umbral Mantle" href="#">Umbral Mantle<img class="mtg-popup" src="../images/placeholder_card.png"></a> plus four cards drawn that turn, providing infinite colorless mana and infinite power. The latter is usually irrelevant, though every so often you’ll kill a player who forgot to leave up a blocker.</p>
+<p>The more frequent win condition is <a class="mtg-link" target="_blank" data-name="Laboratory Maniac" href="#">Laboratory Maniac<img class="mtg-popup" src="../images/placeholder_card.png"></a>. Between <a class="mtg-link" target="_blank" data-name="Thrasios, Triton Hero" href="#">Thrasios, Triton Hero<img class="mtg-popup" src="../images/placeholder_card.png"></a> himself, <a class="mtg-link" target="_blank" data-name="Enter the Infinite" href="#">Enter the Infinite<img class="mtg-popup" src="../images/placeholder_card.png"></a>, and the draw-X spells <a class="mtg-link" target="_blank" data-name="Stroke of Genius" href="#">Stroke of Genius<img class="mtg-popup" src="../images/placeholder_card.png"></a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and <a class="mtg-link" target="_blank" data-name="Mind Spring" href="#">Mind Spring<img class="mtg-popup" src="../images/placeholder_card.png"></a>, it’s trivial to convert infinite mana into an empty library.</p>
+<p>In times where a true infinite combo fails to materialize, dropping <a class="mtg-link" target="_blank" data-name="Omniscience" href="#">Omniscience<img class="mtg-popup" src="../images/placeholder_card.png"></a> on the table is usually sufficient to end the game shortly. <a class="mtg-link" target="_blank" data-name="Enter the Infinite" href="#">Enter the Infinite<img class="mtg-popup" src="../images/placeholder_card.png"></a> is a similar high-mana play which ends the game promptly.</p>
+<p>The secondary infinite combo is <a class="mtg-link" target="_blank" data-name="Isochron Scepter" href="#">Isochron Scepter<img class="mtg-popup" src="../images/placeholder_card.png"></a> plus <a class="mtg-link" target="_blank" data-name="Dramatic Reversal" href="#">Dramatic Reversal<img class="mtg-popup" src="../images/placeholder_card.png"></a> plus any nonland mana source. Both cards are independently very good, which is ironically why I term this the secondary combo. Slamming a Scepter with <a class="mtg-link" target="_blank" data-name="Counterspell" data-set="ICE" href="#">Counterspell<img class="mtg-popup" src="../images/placeholder_card.png"></a> or <a class="mtg-link" target="_blank" data-name="Brainstorm" data-set="SLD" data-number="174" href="#">Brainstorm<img class="mtg-popup" src="../images/placeholder_card.png"></a> can be stronger than ill-timed infinite mana, and can help guarantee a subsequent Kydele kill.</p>
+</section>
+<section id="getting-more-bang-for-our-buck" class="level2">
+<h2>Getting More Bang for our Buck</h2>
+<p>While card draw is always beneficial, <a class="mtg-link" target="_blank" data-name="Kydele" href="#">Kydele<img class="mtg-popup" src="../images/placeholder_card.png"></a> often struggles until she goes off.. Let’s say we draw three cards on a given turn, e.g. with a couple cantrips. Kydele will thus be a four-mana dork who taps for three—not nothing, but also not great. There will often be a period before the combo turn where you’ll need to lay low and be interactive, and gain incremental value before you find the missing piece or reach a critical mass.</p>
+<p>To smooth out this awkward period, there are a number of ways to get more value out of Kydele and card draw in general. Untappers like <a class="mtg-link" target="_blank" data-name="Kiora's Follower" data-set="PBNG" href="#">Kiora's Follower<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Dramatic Reversal" href="#">Dramatic Reversal<img class="mtg-popup" src="../images/placeholder_card.png"></a> double her output, while the draw triggers on <a class="mtg-link" target="_blank" data-name="Horizon Chimera" href="#">Horizon Chimera<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Chasm Skulker" href="#">Chasm Skulker<img class="mtg-popup" src="../images/placeholder_card.png"></a> generate some nice value against aggressive decks.</p>
+<p>Note the inclusion of <a class="mtg-link" target="_blank" data-name="Magus of the Candelabra" href="#">Magus of the Candelabra<img class="mtg-popup" src="../images/placeholder_card.png"></a>. This card is deceptively effective—laundering colorless mana into colors is very useful. With enough mana, it can also unlock tapped lands generated by <a class="mtg-link" target="_blank" data-name="Thrasios" href="#">Thrasios<img class="mtg-popup" src="../images/placeholder_card.png"></a> or ramp spells like <a class="mtg-link" target="_blank" data-name="Cultivate" href="#">Cultivate<img class="mtg-popup" src="../images/placeholder_card.png"></a>.</p>
+<p><a class="mtg-link" target="_blank" data-name="Mistcutter Hydra" href="#">Mistcutter Hydra<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Genesis Hydra" href="#">Genesis Hydra<img class="mtg-popup" src="../images/placeholder_card.png"></a> can convert big mana into big damage, but they are also versatile enough to be played in the midgame. Protection from Blue allows the former to apply pressure to a good portion of opponents, while the latter can help find a missing combo piece while also being a body on the board.</p>
+<p><a class="mtg-link" target="_blank" data-name="Regrowth" href="#">Regrowth<img class="mtg-popup" src="../images/placeholder_card.png"></a> is incredibly useful as a way to re-use spells in both the early and midgame, or to recover a combo from removal. It also goes great under an <a class="mtg-link" target="_blank" data-name="Isochron Scepter" href="#">Isochron Scepter<img class="mtg-popup" src="../images/placeholder_card.png"></a>.</p>
+<p>The overall mana curve is relatively low—mostly 2s and 3s—though a number of more expensive cards can prove backbreaking for your opponents if they fail to deal with them. -</p>
+<ul>
+<li><a class="mtg-link" target="_blank" data-name="Kruphix, God of Horizons" href="#">Kruphix, God of Horizons<img class="mtg-popup" src="../images/placeholder_card.png"></a> is hard to remove and lets you snowball your Kydele mana to play around countermagic.</li>
+<li><a class="mtg-link" target="_blank" data-name="Psychosis Crawler" href="#">Psychosis Crawler<img class="mtg-popup" src="../images/placeholder_card.png"></a> pings opponents on each draw, which can easily become a good chunk of damage in grindier games.</li>
+<li><a class="mtg-link" target="_blank" data-name="Arcanis the Omnipotent" data-set="DDN" href="#">Arcanis the Omnipotent<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Consecrated Sphinx" href="#">Consecrated Sphinx<img class="mtg-popup" src="../images/placeholder_card.png"></a> are both incredibly strong card draw engines. Untapping with either one usually results in an imminent win. The Sphinx is strong even if it doesn’t survive a full turn rotation. Arcanis usually wants <a class="mtg-link" target="_blank" data-name="Lightning Greaves" href="#">Lightning Greaves<img class="mtg-popup" src="../images/placeholder_card.png"></a> for haste.</li>
+</ul>
+</section>
+<section id="tutors" class="level2">
+<h2>Tutors</h2>
+<p>This deck eschews traditional tutors in favor of more card draw, with <a class="mtg-link" target="_blank" data-name="Mystical Tutor" href="#">Mystical Tutor<img class="mtg-popup" src="../images/placeholder_card.png"></a> as the only “pure” example of such effects<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Tutors are not as essential when we plan on drawing half our library.</p>
+<p>That being said, this is still a combo deck, so we want to increase the probability of accessing key cards, despite the Simic color identity lacking cheap general tutors. Blue can tutor for artifact combo pieces, but something like <a class="mtg-link" target="_blank" data-name="Fabricate" href="#">Fabricate<img class="mtg-popup" src="../images/placeholder_card.png"></a> is too constrained. Tutors should be good even when not fetching combo pieces. Green’s creature tutors are mostly irrelevant.</p>
+<p>A solution manifests in the <a href="https://scryfall.com/search?q=o%3Atransmute">transmute</a> cards from original Ravnica. These are cards that can tutor based on mana value, which is very useful for a low-curve deck where cards are clustered around two and three:</p>
+<ul>
+<li><a class="mtg-link" target="_blank" data-name="Muddle the Mixture" href="#">Muddle the Mixture<img class="mtg-popup" src="../images/placeholder_card.png"></a> is a counterspell that can grab <a class="mtg-link" target="_blank" data-name="Isochron Scepter" href="#">Isochron Scepter<img class="mtg-popup" src="../images/placeholder_card.png"></a> or <a class="mtg-link" target="_blank" data-name="Dramatic Reversal" href="#">Dramatic Reversal<img class="mtg-popup" src="../images/placeholder_card.png"></a>, or a <a class="mtg-link" target="_blank" data-name="Lightning Greaves" href="#">Lightning Greaves<img class="mtg-popup" src="../images/placeholder_card.png"></a> to protect Kydele.</li>
+<li><a class="mtg-link" target="_blank" data-name="Drift of Phantasms" href="#">Drift of Phantasms<img class="mtg-popup" src="../images/placeholder_card.png"></a> is a blocker that can grab <a class="mtg-link" target="_blank" data-name="Umbral Mantle" href="#">Umbral Mantle<img class="mtg-popup" src="../images/placeholder_card.png"></a> or <a class="mtg-link" target="_blank" data-name="Laboratory Maniac" href="#">Laboratory Maniac<img class="mtg-popup" src="../images/placeholder_card.png"></a>.</li>
+</ul>
+<p>Keep the transmuters in mind when looking at later sections—we can get away with running fewer instances of certain effects, since there is effectively an extra copy of each two-or-three-drop.</p>
+</section>
+<section id="card-draw" class="level2">
+<h2>Card Draw</h2>
+<p>Card draw spells are the backbone of this deck. Even if they are not being used to immediately combo off, card advantage is good. We run the full suite of one-mana cantrips, given here in order of how much I like to see them in my opening hand:</p>
+<ul>
+<li><a class="mtg-link" target="_blank" data-name="Brainstorm" data-set="SLD" data-number="174" href="#">Brainstorm<img class="mtg-popup" src="../images/placeholder_card.png"></a></li>
+<li><a class="mtg-link" target="_blank" data-name="Preordain" href="#">Preordain<img class="mtg-popup" src="../images/placeholder_card.png"></a></li>
+<li><a class="mtg-link" target="_blank" data-name="Ponder" href="#">Ponder<img class="mtg-popup" src="../images/placeholder_card.png"></a></li>
+<li><a class="mtg-link" target="_blank" data-name="Serum Visions" data-set="SLD" data-number="31" href="#">Serum Visions<img class="mtg-popup" src="../images/placeholder_card.png"></a></li>
+<li><a class="mtg-link" target="_blank" data-name="!Opt" href="#">Opt<img class="mtg-popup" src="../images/placeholder_card.png"></a></li>
+</ul>
+<p>With Kydele out, all of these are essentially free (Brainstorm basically becomes a <a class="mtg-link" target="_blank" data-name="Dark Ritual" href="#">Dark Ritual<img class="mtg-popup" src="../images/placeholder_card.png"></a>).</p>
+<p>Some card draw spells don’t have an immediate payoff, in favor of drawing cards over future turns. <a class="mtg-link" target="_blank" data-name="Howling Mine" href="#">Howling Mine<img class="mtg-popup" src="../images/placeholder_card.png"></a> is the prototype; <a class="mtg-link" target="_blank" data-name="Dictate of Kruphix" data-set="PJOU" href="#">Dictate of Kruphix<img class="mtg-popup" src="../images/placeholder_card.png"></a> is slightly better in that you can draw the first card. <a class="mtg-link" target="_blank" data-name="Jace Beleren" data-set="JVC" href="#">Jace Beleren<img class="mtg-popup" src="../images/placeholder_card.png"></a> is the most flexible, but is vulnerable to removal. The tradeoff is letting the opponents draw cards. In a four-player game, Howling Mine gives away three cards for every one you draw. This tradeoff is offset by the fact that we get more value from each draw, since we get cards and mana, but caution is necessary. In many situations, it is best not to give the other players anything for free.</p>
+<p>The aforementioned draw-X spells are useful in two cases. Before the combo turn, they can double Kydele’s output. An especially powerful pattern is &lt;draw 2&gt; → Tap Kydele → <a class="mtg-link" target="_blank" data-name="Mind Spring" href="#">Mind Spring<img class="mtg-popup" src="../images/placeholder_card.png"></a> → Untap Kydele with <a class="mtg-link" target="_blank" data-name="Kiora's Follower" data-set="PBNG" href="#">Kiora's Follower<img class="mtg-popup" src="../images/placeholder_card.png"></a>.</p>
+<p><a class="mtg-link" target="_blank" data-name="Stroke of Genius" href="#">Stroke of Genius<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Mind Spring" href="#">Mind Spring<img class="mtg-popup" src="../images/placeholder_card.png"></a> are the classical examples. <a class="mtg-link" target="_blank" data-name="Minds Aglow" href="#">Minds Aglow<img class="mtg-popup" src="../images/placeholder_card.png"></a> is a personal favorite. At worst it is sorcery-speed <a class="mtg-link" target="_blank" data-name="Prosperity" href="#">Prosperity<img class="mtg-popup" src="../images/placeholder_card.png"></a>, at best the other players subsidize your combo turn (Just be warned that this only tends to work once per playgroup…). A caveat with this card is that if you aren’t careful, your opponents may be able to generate enough mana to mill you out.</p>
+<p>Other miscellaneous draw spells include <a class="mtg-link" target="_blank" data-name="Mystic Remora" href="#">Mystic Remora<img class="mtg-popup" src="../images/placeholder_card.png"></a> for free cards early in the game, <a class="mtg-link" target="_blank" data-name="Compulsive Research" href="#">Compulsive Research<img class="mtg-popup" src="../images/placeholder_card.png"></a> as an efficient way to draw three cards at once, instantly reaching critical mass with Kydele, and <a class="mtg-link" target="_blank" data-name="Frantic Search" href="#">Frantic Search<img class="mtg-popup" src="../images/placeholder_card.png"></a> as a card-filtering mana generator.</p>
+<p><a class="mtg-link" target="_blank" data-name="Alhammaret's Archive" href="#">Alhammaret's Archive<img class="mtg-popup" src="../images/placeholder_card.png"></a> is an expensive artifact that doesn’t do anything when it comes down, but can very quickly get out of hand. It makes each of these draw spells mana-positive.</p>
+<p>Special attention must be paid to <a class="mtg-link" target="_blank" data-name="Jace's Archivist" href="#">Jace's Archivist<img class="mtg-popup" src="../images/placeholder_card.png"></a>, A.K.A. <a class="mtg-link" target="_blank" data-name="Windfall" href="#">Windfall<img class="mtg-popup" src="../images/placeholder_card.png"></a> on a stick. Untapping with this creature and <a class="mtg-link" target="_blank" data-name="Kydele" href="#">Kydele<img class="mtg-popup" src="../images/placeholder_card.png"></a> can easily win the game—usually at least one player will have 5+ cards in hand. Adding an untapper or Archive into the mix is usually backbreaking.</p>
+</section>
+<section id="interaction" class="level2">
+<h2>Interaction</h2>
+<p>This deck maintains a limited battlefield presence, so it needs to be extra interactive both to protect its own gameplan and to keep opponents from building up too efficiently. <a class="mtg-link" target="_blank" data-name="Counterspell" data-set="ICE" href="#">Counterspell<img class="mtg-popup" src="../images/placeholder_card.png"></a>, <a class="mtg-link" target="_blank" data-name="Spell Pierce" href="#">Spell Pierce<img class="mtg-popup" src="../images/placeholder_card.png"></a>, <a class="mtg-link" target="_blank" data-name="Swan Song" href="#">Swan Song<img class="mtg-popup" src="../images/placeholder_card.png"></a>, <a class="mtg-link" target="_blank" data-name="Arcane Denial" href="#">Arcane Denial<img class="mtg-popup" src="../images/placeholder_card.png"></a>, <a class="mtg-link" target="_blank" data-name="Disallow" href="#">Disallow<img class="mtg-popup" src="../images/placeholder_card.png"></a>, and <a class="mtg-link" target="_blank" data-name="Cryptic Command" href="#">Cryptic Command<img class="mtg-popup" src="../images/placeholder_card.png"></a> make up the counterspell suite. <a class="mtg-link" target="_blank" data-name="Arcane Denial" href="#">Arcane Denial<img class="mtg-popup" src="../images/placeholder_card.png"></a> is better in this deck than others, as the delayed card draw can be used to set up a nice <a class="mtg-link" target="_blank" data-name="Kydele" href="#">Kydele<img class="mtg-popup" src="../images/placeholder_card.png"></a> turn.</p>
+<p>For on-board interaction in Simic, I’m a big fan of so-called “swap removal”, where an opponent gets a token in exchange for a destroyed creature. <a class="mtg-link" target="_blank" data-name="Pongify" href="#">Pongify<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Rapid Hybridization" href="#">Rapid Hybridization<img class="mtg-popup" src="../images/placeholder_card.png"></a> are among the most efficient creature removal in Blue, while <a class="mtg-link" target="_blank" data-name="Beast Within" href="#">Beast Within<img class="mtg-popup" src="../images/placeholder_card.png"></a> is effective against any permanent. The tradeoff of an opposing 3/3 is mostly irrelevant in a game with 40 life.</p>
+<p><a class="mtg-link" target="_blank" data-name="Curse of the Swine" href="#">Curse of the Swine<img class="mtg-popup" src="../images/placeholder_card.png"></a> puts this effect on an X-cost exile boardwipe allowing for surgical removal of a number of problematic creatures. Of course, <a class="mtg-link" target="_blank" data-name="Cyclonic Rift" href="#">Cyclonic Rift<img class="mtg-popup" src="../images/placeholder_card.png"></a> remains the best boardwipe in the colors. Remember that it can be used as a two-mana bounce spell, then <a class="mtg-link" target="_blank" data-name="Regrowth" href="#">Regrowth<img class="mtg-popup" src="../images/placeholder_card.png"></a>ed back when needed. Note that both spells have a mana value of two, letting <a class="mtg-link" target="_blank" data-name="Muddle the Mixture" href="#">Muddle the Mixture<img class="mtg-popup" src="../images/placeholder_card.png"></a> tutor for them.</p>
+<p><a class="mtg-link" target="_blank" data-name="Broken Bond" href="#">Broken Bond<img class="mtg-popup" src="../images/placeholder_card.png"></a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> and <a class="mtg-link" target="_blank" data-name="Manglehorn" href="#">Manglehorn<img class="mtg-popup" src="../images/placeholder_card.png"></a> are effective against artifacts, though they may be swapped out with other similar spells. I recommend replacements with the same mana values, so the transmutors can find them.</p>
+<p>Lastly, I have been experimenting with <a class="mtg-link" target="_blank" data-name="Propaganda" href="#">Propaganda<img class="mtg-popup" src="../images/placeholder_card.png"></a> to hedge against go-wide strategies. I have yet to see how effective it is.</p>
+<p>Note that the interaction suite should be tailored to one’s playgroup—I don’t run any graveyard hate because none of my friends played graveyard strategies, for example.</p>
+</section>
+<section id="ramp" class="level2">
+<h2>Ramp</h2>
+<p>The critical moment for this deck usually occurs on turn four or five. As such, we only have room for a couple of ramp spells to get there faster. Once <a class="mtg-link" target="_blank" data-name="Kydele" href="#">Kydele<img class="mtg-popup" src="../images/placeholder_card.png"></a> is down, she will provide mana acceleration.</p>
+<p>We run the classics: the obvious <a class="mtg-link" target="_blank" data-name="Sol Ring" href="#">Sol Ring<img class="mtg-popup" src="../images/placeholder_card.png"></a>, with <a class="mtg-link" target="_blank" data-name="Cultivate" href="#">Cultivate<img class="mtg-popup" src="../images/placeholder_card.png"></a>, and <a class="mtg-link" target="_blank" data-name="Rampant Growth" href="#">Rampant Growth<img class="mtg-popup" src="../images/placeholder_card.png"></a> for ramp and color fixing. <a class="mtg-link" target="_blank" data-name="Explore" href="#">Explore<img class="mtg-popup" src="../images/placeholder_card.png"></a> is extra useful in this deck, remaining useful into the late game as it grants an extra mana to Kydele. <a class="mtg-link" target="_blank" data-name="Thought Vessel" href="#">Thought Vessel<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Commander's Sphere" href="#">Commander's Sphere<img class="mtg-popup" src="../images/placeholder_card.png"></a> are the other mana rocks. The former is mostly for convenience, as nobody wants to sit there while you discard from a 20 card hand. The latter is useful as a free card draw (+1 mana with Kydele), though it is a little slow.</p>
+<p>Lastly, <a class="mtg-link" target="_blank" data-name="!Burgeoning" href="#">Burgeoning<img class="mtg-popup" src="../images/placeholder_card.png"></a> can put you very far ahead if you are able to refill your hand fast enough. I’m not convinced that the expected value is higher than something else to fill the slot, but even a weaker Burgeoning will usually net at least one or two extra land drops.</p>
+</section>
+<section id="mana-base" class="level2">
+<h2>Mana Base</h2>
+<p>The mana base consists of 39 assorted Simic lands. There are a few callouts:</p>
+<ul>
+<li><a class="mtg-link" target="_blank" data-name="Misty Rainforest" href="#">Misty Rainforest<img class="mtg-popup" src="../images/placeholder_card.png"></a> is of course a combo with <a class="mtg-link" target="_blank" data-name="Brainstorm" data-set="SLD" data-number="174" href="#">Brainstorm<img class="mtg-popup" src="../images/placeholder_card.png"></a>.</li>
+<li><a class="mtg-link" target="_blank" data-name="Simic Growth Chamber" href="#">Simic Growth Chamber<img class="mtg-popup" src="../images/placeholder_card.png"></a> is usually a bad card, but here it combos with <a class="mtg-link" target="_blank" data-name="Frantic Search" href="#">Frantic Search<img class="mtg-popup" src="../images/placeholder_card.png"></a>, <a class="mtg-link" target="_blank" data-name="Kiora's Follower" data-set="PBNG" href="#">Kiora's Follower<img class="mtg-popup" src="../images/placeholder_card.png"></a>, and <a class="mtg-link" target="_blank" data-name="Magus of the Candelabra" href="#">Magus of the Candelabra<img class="mtg-popup" src="../images/placeholder_card.png"></a>.</li>
+<li><a class="mtg-link" target="_blank" data-name="Lonely Sandbar" href="#">Lonely Sandbar<img class="mtg-popup" src="../images/placeholder_card.png"></a> is a cantrip if necessary.</li>
+<li><a class="mtg-link" target="_blank" data-name="Lumbering Falls" href="#">Lumbering Falls<img class="mtg-popup" src="../images/placeholder_card.png"></a> can serve as a blocker in an emergency.</li>
+</ul>
+<hr />
+</section>
+<section id="full-list" class="level2">
+<h2>Full List</h2>
+<section id="commander" class="level3">
+<h3>Commander</h3>
+<p>1 <a class="mtg-link" target="_blank" data-name="Kydele, Chosen of Kruphix" href="#">Kydele, Chosen of Kruphix<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Thrasios, Triton Hero" href="#">Thrasios, Triton Hero<img class="mtg-popup" src="../images/placeholder_card.png"></a></p>
+</section>
+<section id="creature" class="level3">
+<h3>Creature</h3>
+<p>1 <a class="mtg-link" target="_blank" data-name="Arcanis the Omnipotent" data-set="DDN" href="#">Arcanis the Omnipotent<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Chasm Skulker" href="#">Chasm Skulker<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Consecrated Sphinx" href="#">Consecrated Sphinx<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Drift of Phantasms" href="#">Drift of Phantasms<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Genesis Hydra" href="#">Genesis Hydra<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Horizon Chimera" href="#">Horizon Chimera<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Jace's Archivist" href="#">Jace's Archivist<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Kiora's Follower" data-set="PBNG" href="#">Kiora's Follower<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Kruphix, God of Horizons" href="#">Kruphix, God of Horizons<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Laboratory Maniac" href="#">Laboratory Maniac<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Magus of the Candelabra" href="#">Magus of the Candelabra<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Manglehorn" href="#">Manglehorn<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Mistcutter Hydra" href="#">Mistcutter Hydra<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Psychosis Crawler" href="#">Psychosis Crawler<img class="mtg-popup" src="../images/placeholder_card.png"></a></p>
+</section>
+<section id="artifact" class="level3">
+<h3>Artifact</h3>
+<p>1 <a class="mtg-link" target="_blank" data-name="Alhammarret's Archive" href="#">Alhammarret's Archive<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Commander's Sphere" href="#">Commander's Sphere<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Howling Mine" href="#">Howling Mine<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Isochron Scepter" href="#">Isochron Scepter<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Lightning Greaves" href="#">Lightning Greaves<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Sol Ring" data-set="C15" href="#">Sol Ring<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Thought Vessel" href="#">Thought Vessel<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Umbral Mantle" href="#">Umbral Mantle<img class="mtg-popup" src="../images/placeholder_card.png"></a></p>
+</section>
+<section id="enchantment" class="level3">
+<h3>Enchantment</h3>
+<p>1 <a class="mtg-link" target="_blank" data-name="!Burgeoning" href="#">Burgeoning<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Dictate of Kruphix" data-set="PJOU" href="#">Dictate of Kruphix<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Mystic Remora" href="#">Mystic Remora<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Omniscience" href="#">Omniscience<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Propaganda" href="#">Propaganda<img class="mtg-popup" src="../images/placeholder_card.png"></a></p>
+</section>
+<section id="instant" class="level3">
+<h3>Instant</h3>
+<p>1 <a class="mtg-link" target="_blank" data-name="Arcane Denial" href="#">Arcane Denial<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Beast Within" href="#">Beast Within<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Brainstorm" data-set="SLD" data-number="174" href="#">Brainstorm<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Counterspell" data-set="ICE" href="#">Counterspell<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Cryptic Command" href="#">Cryptic Command<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Cyclonic Rift" href="#">Cyclonic Rift<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="!Disallow" href="#">Disallow<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Dramatic Reversal" href="#">Dramatic Reversal<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Frantic Search" href="#">Frantic Search<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Muddle the Mixture" href="#">Muddle the Mixture<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Mystical Tutor" href="#">Mystical Tutor<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="!Opt" href="#">Opt<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Pongify" href="#">Pongify<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Rapid Hybridization" href="#">Rapid Hybridization<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Reality Shift" href="#">Reality Shift<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Spell Pierce" href="#">Spell Pierce<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Stroke of Genius" href="#">Stroke of Genius<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Swan Song" href="#">Swan Song<img class="mtg-popup" src="../images/placeholder_card.png"></a></p>
+</section>
+<section id="sorcery" class="level3">
+<h3>Sorcery</h3>
+<p>1 <a class="mtg-link" target="_blank" data-name="Broken Bond" data-set="DOM" href="#">Broken Bond<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Compulsive Research" href="#">Compulsive Research<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Cultivate" href="#">Cultivate<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Curse of the Swine" href="#">Curse of the Swine<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Enter the Infinite" href="#">Enter the Infinite<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="!Explore" href="#">Explore<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Mind Spring" href="#">Mind Spring<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Minds Aglow" href="#">Minds Aglow<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Ponder" href="#">Ponder<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Preordain" href="#">Preordain<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Rampant Growth" href="#">Rampant Growth<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="!Regrowth" href="#">Regrowth<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Serum Visions" data-set="SLD" data-number="31" href="#">Serum Visions<img class="mtg-popup" src="../images/placeholder_card.png"></a></p>
+</section>
+<section id="planeswalker" class="level3">
+<h3>Planeswalker</h3>
+<p>1 <a class="mtg-link" target="_blank" data-name="Jace Beleren" data-set="JVC" href="#">Jace Beleren<img class="mtg-popup" src="../images/placeholder_card.png"></a></p>
+</section>
+<section id="land" class="level3">
+<h3>Land</h3>
+<p>1 <a class="mtg-link" target="_blank" data-name="Botanical Sanctum" href="#">Botanical Sanctum<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Breeding Pool" href="#">Breeding Pool<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Command Tower" href="#">Command Tower<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Flooded Grove" href="#">Flooded Grove<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+11 <a class="mtg-link" target="_blank" data-name="Forest" data-set="ODY" data-number="349" href="#">Forest<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Halimar Depths" href="#">Halimar Depths<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Hinterland Harbor" href="#">Hinterland Harbor<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+14 <a class="mtg-link" target="_blank" data-name="Island" data-set="ONS" data-number="335" href="#">Island<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Lonely Sandbar" href="#">Lonely Sandbar<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Lumbering Falls" href="#">Lumbering Falls<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Misty Rainforest" href="#">Misty Rainforest<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Reliquary Tower" href="#">Reliquary Tower<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Simic Growth Chamber" href="#">Simic Growth Chamber<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Sodden Verdure" href="#">Sodden Verdure<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Temple of Mystery" href="#">Temple of Mystery<img class="mtg-popup" src="../images/placeholder_card.png"></a><br />
+1 <a class="mtg-link" target="_blank" data-name="Yavimaya Coast" href="#">Yavimaya Coast<img class="mtg-popup" src="../images/placeholder_card.png"></a></p>
+</section>
+</section>
+<section id="addenda" class="level2">
+<h2>Addenda</h2>
+<p>There are a number of cards I have been meaning to swap in which, for one reason or another, I have not gotten around to acquiring.</p>
+<ul>
+<li><a class="mtg-link" target="_blank" data-name="Finale of Revelation" href="#">Finale of Revelation<img class="mtg-popup" src="../images/placeholder_card.png"></a> for <a class="mtg-link" target="_blank" data-name="Mind Spring" href="#">Mind Spring<img class="mtg-popup" src="../images/placeholder_card.png"></a></li>
+<li><a class="mtg-link" target="_blank" data-name="Careful study" href="#">Careful study<img class="mtg-popup" src="../images/placeholder_card.png"></a> for <a class="mtg-link" target="_blank" data-name="Serum Visions" data-set="SLD" data-number="31" href="#">Serum Visions<img class="mtg-popup" src="../images/placeholder_card.png"></a></li>
+<li><a class="mtg-link" target="_blank" data-name="Quantum Riddler" href="#">Quantum Riddler<img class="mtg-popup" src="../images/placeholder_card.png"></a> for <a class="mtg-link" target="_blank" data-name="Arcanis, The Omnipotent" data-set="DDN" href="#">Arcanis, The Omnipotent<img class="mtg-popup" src="../images/placeholder_card.png"></a></li>
+<li><a class="mtg-link" target="_blank" data-name="Staff of Domination" href="#">Staff of Domination<img class="mtg-popup" src="../images/placeholder_card.png"></a> if another combo piece is needed.</li>
+<li><a class="mtg-link" target="_blank" data-name="Otawara, Soaring City" href="#">Otawara, Soaring City<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Sink into Stupor" href="#">Sink into Stupor<img class="mtg-popup" src="../images/placeholder_card.png"></a> as free bounce spells.</li>
+<li><a class="mtg-link" target="_blank" data-name="Windfall" href="#">Windfall<img class="mtg-popup" src="../images/placeholder_card.png"></a> and <a class="mtg-link" target="_blank" data-name="Tolarian Winds" href="#">Tolarian Winds<img class="mtg-popup" src="../images/placeholder_card.png"></a> as mass draw spells.</li>
+</ul>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This card can also deck an opponent at instant speed if needed.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Turn one <a class="mtg-link" target="_blank" data-name="Mystical Tutor" href="#">Mystical Tutor<img class="mtg-popup" src="../images/placeholder_card.png"></a> for <a class="mtg-link" target="_blank" data-name="Brainstorm" data-set="SLD" data-number="174" href="#">Brainstorm<img class="mtg-popup" src="../images/placeholder_card.png"></a> feels awesome.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>I’m convinced that <a class="mtg-link" target="_blank" data-name="Broken Bond" href="#">Broken Bond<img class="mtg-popup" src="../images/placeholder_card.png"></a> is a great card. Ramp on a disenchant is great, even if only at sorcery speed.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+    </section>
+</article>
+</main>
+
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+  <script type="text/javascript" src="../js/interlinear.js"></script>
+  <script type="text/javascript" src="../js/mtg.js"></script>
+</html>
