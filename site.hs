@@ -236,7 +236,7 @@ main = do
       route idRoute
       compile compressJsCompiler
 
-    match (fromList ["about.md"]) $ do
+    match (fromList ["about.md", "404.md"]) $ do
       route $ setExtension "html"
       compile $
         pandocCompiler'
