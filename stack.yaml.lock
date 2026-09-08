@@ -32,6 +32,13 @@ packages:
       size: 850
   original:
     hackage: base64-bytestring-1.2.1.0
+- completed:
+    hackage: regex-tdfa-1.3.2.3@sha256:291d6d03d73a95c43ee66fe6ace6ae2691eef69498547c79c1401d3caacc85e1,6417
+    pantry-tree:
+      sha256: 02339d84dfbbc6424a732b1351b9fc2c80bed2981c434c5cb0499bd72ad90f3f
+      size: 2674
+  original:
+    hackage: regex-tdfa-1.3.2.3
 snapshots:
 - completed:
     sha256: 296a7960c37efa382432ab497161a092684191815eb92a608c5d6ea5f894ace3

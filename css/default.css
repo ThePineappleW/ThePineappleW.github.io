@@ -235,6 +235,22 @@ pre code {
   white-space: pre-wrap;
 }
 
+.mtg-popup {
+  display: none;
+}
+
+.mtg-link:hover {
+  background-color: yellow;
+}
+
+.mtg-link:hover .mtg-popup {
+  display: block;
+  z-index: 100;
+  aspect-ratio: 488 / 680;
+  height: 40%;
+  position: absolute;
+}
+
 /*
 =====================================================================
 =                            Glossing rules                         =

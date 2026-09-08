@@ -5,6 +5,7 @@
 import Control.Exception (SomeException, evaluate, try)
 import Crossword (puzzleCompiler, puzzleCtx)
 import Data.Aeson (Value, decode, encode, withObject)
+import Data.Array (elems)
 import qualified Data.Base64.Types as B64
 import Data.Bits (Bits (..))
 import qualified Data.ByteString as BS
@@ -12,8 +13,10 @@ import qualified Data.ByteString.Lazy as BL
 import qualified Data.ByteString.Lazy.Char8 as C
 import qualified Data.ByteString.Lazy.Char8 as L8
 import Data.Char (isAlpha, ord)
+import Data.Functor ((<&>))
 import Data.Int (Int32)
 import Data.List as L
+import Data.List.Split (splitOn, splitOneOf)
 import Data.Maybe (fromMaybe)
 import Data.Monoid (mappend)
 import qualified Data.Text as T
@@ -31,6 +34,8 @@ import System.IO.Unsafe (unsafePerformIO)
 import Text.Jasmine
 import Text.Pandoc.Highlighting (Style, haddock, styleToCss)
 import Text.Pandoc.Options (Extension (..), HTMLMathMethod (..), ReaderOptions (..), WriterOptions (..), disableExtension, enableExtension)
+import Text.Printf (printf)
+import Text.Regex.TDFA (MatchArray, (=~))
 
 --------------------------------------------------------------------------------
 -- Extension management
@@ -78,6 +83,20 @@ pandocCompiler' =
         writerSectionDivs = True,
         writerExtensions = newExtensions
       }
+
+pandocCompiler'' :: (String -> String) -> Compiler (Item String)
+pandocCompiler'' f =
+  let writerOptions =
+        defaultHakyllWriterOptions
+          { writerHTMLMathMethod = MathJax "",
+            writerHighlightStyle = Just pandocCodeStyle,
+            writerSectionDivs = True,
+            writerExtensions = newExtensions
+          }
+   in getResourceBody
+        >>= withItemBody (return . f)
+        >>= readPandocWith defaultHakyllReaderOptions
+        <&> writePandocWith writerOptions
 
 defaultContext' :: Context String
 defaultContext' = faviconsField `mappend` defaultContext
@@ -141,6 +160,58 @@ projectCompiler = do
     >>= relativizeUrls
 
 --------------------------------------------------------------------------------
+-- MTG card embedding functions
+--------------------------------------------------------------------------------
+
+regexReplace :: String -> (String -> String) -> String -> String
+regexReplace pat f input = rebuild 0 matches
+  where
+    matches :: [(Int, Int)] -- (offset, length) of each match, in order
+    matches = [m | ma <- input =~ pat :: [MatchArray], m <- take 1 (elems ma)]
+
+    rebuild pos [] = drop pos input
+    rebuild pos ((off, len) : rest) =
+      take (off - pos) (drop pos input)
+        ++ f (take len (drop off input))
+        ++ rebuild (off + len) rest
+
+data MTGCard = Card
+  { name :: String,
+    set :: Maybe String,
+    number :: Maybe String
+  }
+
+parseMTG :: String -> Maybe MTGCard
+parseMTG str = case splitOneOf "|_" stripped of
+  [name, set, number] -> Just (Card name (Just set) (Just number))
+  [name, set] -> Just (Card name (Just set) Nothing)
+  [name] -> Just (Card name Nothing Nothing)
+  [] -> Nothing
+  where
+    stripped = filter (\ch -> (ch /= '[') && (ch /= ']')) str
+
+formatScryfallParam :: String -> Maybe String -> String
+formatScryfallParam label (Just val) = printf "data-%s=\"%s\" " label val
+formatScryfallParam _ Nothing = ""
+
+formatScryfallLink :: MTGCard -> String
+formatScryfallLink (Card name set number) =
+  "`<a class=\"mtg-link\" target=\"_blank\" "
+    ++ printf "data-name=\"%s\" " name
+    ++ formatScryfallParam "set" set
+    ++ formatScryfallParam "number" number
+    ++ "href=\"#\">"
+    ++ name
+    ++ "<img class=\"mtg-popup\" src=\"/images/placeholder_card.png\"></a>`{=html}"
+
+generateMTGEmbed :: String -> String
+generateMTGEmbed str =
+  maybe str formatScryfallLink (parseMTG str)
+
+embedAllMTG :: String -> String
+embedAllMTG = regexReplace "\\[\\[[^]]+\\]\\]" generateMTGEmbed
+
+--------------------------------------------------------------------------------
 
 main :: IO ()
 main = do
@@ -197,7 +268,7 @@ main = do
     match "posts/**.md" $ do
       route $ setExtension "html"
       compile $
-        pandocCompiler'
+        pandocCompiler'' embedAllMTG
           >>= loadAndApplyTemplate "templates/blog/post.html" postCtx
           >>= loadAndApplyTemplate "templates/default.html" postCtx
           >>= relativizeUrls
